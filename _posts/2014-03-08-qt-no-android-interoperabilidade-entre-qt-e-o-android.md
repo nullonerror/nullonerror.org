@@ -24,9 +24,9 @@ Depois de uma breve pesquisa no diretório de instalação do Qt, encontrei o se
 
 `$QTDIR/5.*.*/android_(armv5|android_armv7|android_x86)/src/android/java`
 
-* $QTDIR `O diretório raiz`
-* 5.\*.\* `A versão`
-* android_(armv5 \| android_armv7 \| android_x86) `A arquitetura`
+* $QTDIR _O diretório raiz_
+* 5.\*.\* _A versão_
+* android_(armv5 \| android_armv7 \| android_x86) _A arquitetura_
 
 É onde tem exatamente o que precisava, o AndroidManifest.xml, version.xml, os diretórios src e res. E o que temos dentro de `_src/org/qtproject/qt5/android/bindings_`? Temos QtActivity QtApplication, que herdam Activity e Application do Android SDK respectivamente, e como podemos ver, no AndroidManifest.xml
 
