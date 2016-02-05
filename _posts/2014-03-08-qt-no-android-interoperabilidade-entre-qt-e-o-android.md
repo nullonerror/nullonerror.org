@@ -28,7 +28,7 @@ Depois de uma breve pesquisa no diretório de instalação do Qt, encontrei o se
 * 5.\*.\* _A versão_
 * android_(armv5 \| android_armv7 \| android_x86) _A arquitetura_
 
-É onde tem exatamente o que precisava, o AndroidManifest.xml, version.xml, os diretórios src e res. E o que temos dentro de `_src/org/qtproject/qt5/android/bindings_`? Temos QtActivity QtApplication, que herdam Activity e Application do Android SDK respectivamente, e como podemos ver, no AndroidManifest.xml
+É onde tem exatamente o que precisava, o AndroidManifest.xml, version.xml, os diretórios src e res. E o que temos dentro de `src/org/qtproject/qt5/android/bindings`? Temos QtActivity QtApplication, que herdam Activity e Application do Android SDK respectivamente, e como podemos ver, no AndroidManifest.xml
 
 ``` xml
 <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="@string/app_name">
@@ -103,7 +103,7 @@ E apontamos essa nova classe no _AndroidManifest.xml_, substituindo `org.qtproje
 
 Para finalizar esta etapa precisamos adicionar o arquivo revmob-6.8.2.jar da SDK do RevMob no diretório libs, ainda dentro de android-sources.
 
-Finalmente poderemos voltar à programação de verdade, C++ :)
+Finalmente poderemos voltar à programação de verdade.
 
 Para começar a utilizar precisamos iniciar uma sessão, o que pode ser feito na inicializacão do app, da seguinte maneira:
 
