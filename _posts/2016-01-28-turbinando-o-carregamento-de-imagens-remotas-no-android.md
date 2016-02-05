@@ -22,7 +22,7 @@ O app consiste em uma série de cardviews com imagens de background oriundos de 
 
 Somando todos esses fatores, a experiência do usuário é prejudicada pela baixa performance.
 
-Resolvi então usar o [thumbor](http://thumborize.me/) como proxy. O thumbor é um projeto open-source mantido pela Globo, que permite aplicar diversos efeitos, cortes, ajustes e filtros em imagens, tudo pela URL.
+Resolvi então usar o [thumbor](http://thumborize.me/) como proxy. O thumbor é um projeto open-source mantido pela Globo, que permite aplicar diversos efeitos, cortes, ajustes e filtros em imagens, tudo configurável pela URL.
 
 > Exemplo
 > [http://thumbor.thumborize.me/unsafe/300x100/filters:rotate(90)/placehold.it/250x150/ff0000](http://thumbor.thumborize.me/unsafe/300x100/filters:rotate(90)/placehold.it/250x150/ff0000)
