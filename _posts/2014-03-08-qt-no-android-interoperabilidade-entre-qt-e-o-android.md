@@ -33,7 +33,7 @@ Depois de uma breve pesquisa no diretório de instalação do Qt, encontrei o se
 ``` xml
 <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="@string/app_name">
 
-  <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation"
+  <activity android:configChanges="orientation|uiMode|screenLayout|screenSize..."
     android:name="org.qtproject.qt5.android.bindings.QtActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="unspecified">
