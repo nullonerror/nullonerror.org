@@ -1,19 +1,17 @@
-permalink:           pretty
-
 title: NULL on error
 tagline: flipping bits whilst updating pixels
+author: Rodrigo Delduca
 url: https://nullonerror.org
 analytics: UA-28518341-1
+permalink: pretty
 baseurl: ""
 
 sass:
   sass_dir: _sass
   style: :compressed
 
-author:
-  name: Rodrigo Delduca
-  url: https://github.com/skhaz
-  email: rodrigodelduca@gmail.com
+twitter:
+  username: nullonerror
 
 kramdown:
   input: GFM
