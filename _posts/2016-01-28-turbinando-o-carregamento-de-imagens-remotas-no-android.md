@@ -1,7 +1,7 @@
 ---
 layout: post
-title: >
-  Turbinando o carregamento de imagens remotas no Android
+title: Turbinando o carregamento de imagens remotas no Android
+published: true
 ---
 
 ![image](/public/2016-01-28-turbinando-o-carregamento-de-imagens-remotas-no-android/android-fast.jpg)
@@ -85,7 +85,7 @@ Resultado
 | :---:|:---: |
 | ![image](/public/2016-01-28-turbinando-o-carregamento-de-imagens-remotas-no-android/normal.gif) | ![image](/public/2016-01-28-turbinando-o-carregamento-de-imagens-remotas-no-android/optimized.gif) |
 
-Já acabou, Jéssica?
-===================
+[Já acabou, Jéssica?](http://i.imgur.com/eJKIQEl.jpg)
+=====================================================
 
 O próximo passo é descobrir o sentido em que o usuário está rolando a lista e ir fazendo pre-fetch de algumas imagens, passando a impressão de carregamento instantâneo.
