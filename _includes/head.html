@@ -19,7 +19,7 @@
     {% capture include_to_scssify %}
       {% include styles.scss %}
     {% endcapture %}
-    {{ include_to_scssify | scssify  }}
+    {{ include_to_scssify | scssify | strip_newlines }}
   </style>
   
   {% seo %}
