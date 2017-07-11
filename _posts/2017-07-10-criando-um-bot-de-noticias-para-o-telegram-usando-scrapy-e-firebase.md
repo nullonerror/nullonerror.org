@@ -8,15 +8,15 @@ title: >
 
 Eu costumo pegar com frequência a rodovia [Régis Bittencourt](http://www.autopistaregis.com.br/) e o que acontece com frequência é o trânsito parar completamente no meio do nada e sem acesso à internet, então eu fico sem a mínima noção do que está acontecendo e em quanto tempo conseguirei chegar ao meu destino.
 
-Pensando nisso, decidi escrever um pequeno bot para o Telegram que publica num canal as notícias da estrada! Como de costume no NULL on error, vou explicar como fiz.
+Pensando nisso, decidi escrever um pequeno `bot` para o Telegram que publica num canal as notícias da estrada! Como de costume no NULL on error, vou explicar como fiz.
 
 ### Web scraping
 
 ![Squitter](/public/2017-07-10-criando-um-bot-de-noticias-para-o-telegram-usando-scrapy-e-firebase/squitter.jpg)
 
-O primeiro passo é extrair as informações do site. Eu optei por utilizar o framework [Scrapy](https://scrapy.org/), por alguns motivos que ficarão bem claros abaixo e por ter bastante experiência escrevendo web crawlers com o Scrapy, eu não pretendo escrever um tutorial a respeito neste artigo, isso ficará para uma próxima oportunidade.
+O primeiro passo é extrair as informações do site. Eu optei por utilizar o framework [Scrapy](https://scrapy.org/), por alguns motivos que ficarão bem claros abaixo e por ter bastante experiência escrevendo web crawlers com o Scrapy - eu não pretendo escrever um tutorial a respeito neste artigo, isso ficará para uma próxima oportunidade.
 
-Antes de tudo eu preciso definir o que eu quero extrair; isso é feito definindo uma class com _N_ [campos](https://doc.scrapy.org/en/latest/topics/items.html#scrapy.item.Field) herdando de [scrapy.Item](https://doc.scrapy.org/en/latest/topics/items.html)
+Antes de tudo, eu preciso definir o que eu quero extrair; isso é feito definindo uma classe com _N_ [propriedades](https://doc.scrapy.org/en/latest/topics/items.html#scrapy.item.Field) herdando de [scrapy.Item](https://doc.scrapy.org/en/latest/topics/items.html)
 
 ```python
 class Entry(Item):
@@ -26,7 +26,7 @@ class Entry(Item):
     content = Field()
 ```
 
-Como é possível notar a aranha, ou _crawler_ ficou bem simples, mas como pode ser visto abaixo, vou explicar cada parte a seguir.
+Como é possível notar, a aranha, ou _crawler_, ficou bem simples, mas vou explicar cada parte a seguir.
 
 ```python
 class RegisSpider(CrawlSpider):
@@ -45,7 +45,7 @@ class RegisSpider(CrawlSpider):
 
 A propriedade `start_urls ` indica onde a aranha vai iniciar a varredura de páginas
 
-Após isso, definimos algumas regras. Vou usar um [LinkExtractor](https://doc.scrapy.org/en/latest/topics/link-extractors.html), que, como o próprio nome diz é um componente para extrair links seguindo uma regra das páginas encontradas. Nesse caso eu usei uma expressão regular que bate com todas as URLS de notícias do site, e defino um callback que será chamado para cada página chamado parse_news
+Após isso, definimos algumas regras. Vou usar um [LinkExtractor](https://doc.scrapy.org/en/latest/topics/link-extractors.html), que, como o próprio nome diz é um componente para extrair links seguindo uma regra das páginas encontradas. Nesse caso eu usei uma expressão regular que bate com todas as URLS de notícias do site, e defino um callback que será chamado para cada página, chamado `parse_news`.
 
 ```python
 LinkExtractor(allow=r'\?link=noticias.?ver*'), callback='parse_news')
@@ -55,7 +55,7 @@ Então é aqui que a mágica toda acontece: passei algum tempo analisando o cód
 
 ### XPath
 
-O [XPath](https://www.w3schools.com/xml/xml_xpath.asp) é uma forma de atravessar o html e extrair alguma informação específica. É uma linguagem bem poderosa, neste caso eu usei a expressão `[not(position() > last() -3)]` para excluir os últimos 3 parágrafos marcados pela tag `<p>`, que o site sempre coloca como uma forma de rodapé. Infelizmente, nem sempre os sites seguem boas práticas, o que me facilitaria e muito a extração dos dados!
+O [XPath](https://www.w3schools.com/xml/xml_xpath.asp) é uma forma de atravessar o HTML e extrair alguma informação específica. É uma linguagem bem poderosa. Nesse caso eu usei a expressão `[not(position() > last() -3)]` para excluir os últimos 3 parágrafos marcados pela tag `<p>`, que o site sempre coloca como uma forma de rodapé. Infelizmente, nem sempre os sites seguem boas práticas, o que me facilitaria e muito a extração dos dados!
 
 ```python
 loader.add_xpath('content', '//*[@id="noticia"]/p[not(position() > last() -3)]//text()')
@@ -71,13 +71,13 @@ MAGIC_FIELDS = {
 }
 ```
 
-O próximo passo é rodar o web crawler periodicamente. Eu usei o sistema de cloud do scrapinghub, que é a empresa que desenvolve o Scrapy e outras ferramentas de scraping, nele eu posso configurar para rodar de tempos em tempos o crawler. No meu caso eu configurei para rodar a cada 30 minutos,
+O próximo passo é rodar o web crawler periodicamente. Eu usei o sistema de cloud do [Scrapinghub](https://scrapinghub.com/), que é a empresa que desenvolve o Scrapy e outras ferramentas de scraping; nele, eu posso configurar para rodar de tempos em tempos o crawler. No meu caso, eu configurei para rodar a cada 30 minutos,
 
-Mesmo que possível, eu não posso publicar diretamente, apenas as novas notícias, caso contrário toda vez que o crawler rodar eu estaria poluindo o canal com as notícias repetidas. Então eu decidi salvar num banco de dados intermediário para conseguir distinguir o que é novo do que já foi indexado.
+Mesmo que possível, eu não posso publicar diretamente, apenas as novas notícias, caso contrário, toda vez que o crawler rodar eu estaria poluindo o canal com as notícias repetidas. Então eu decidi salvar num banco de dados intermediário para conseguir distinguir o que é novo do que já foi indexado.
 
 ### Persistência
 
-Eis que entra o [Firebase](https://firebase.google.com/), e sua nova funcionalidade chamada de [functions](https://firebase.google.com/docs/functions), com o qual, eu posso escrever uma função que reage a determinados eventos no banco de dados, como por exemplo, quando um novo dado é inserido.
+Eis que entra o [Firebase](https://firebase.google.com/), e sua nova funcionalidade chamada de [functions](https://firebase.google.com/docs/functions), com o qual, eu posso escrever uma função que reage a determinados eventos no banco de dados - por exemplo, quando um novo dado é inserido.
 
 
 ```javascript
@@ -117,13 +117,13 @@ exports.notifyChannel = functions.database.ref('/news/{what}/{uid}')
 });
 ```
 
-Essa função é bem simples; basicamente, em qualquer evento de _onCreate_ ela é chamada, eu faço uma chamada `POST` na API do Telegram com o nome do canal, token do bot e conteúdo, que no caso é o texto da notícia.
+Essa função é bem simples; basicamente, em qualquer evento de _onCreate_ ela é chamada, então faço uma chamada `POST` na API do Telegram com o nome do canal, token do bot e conteúdo, que, no caso, é o texto da notícia.
 
 ![Pregunta](/public/2017-07-10-criando-um-bot-de-noticias-para-o-telegram-usando-scrapy-e-firebase/pregunta.jpg)
 
 ### E como os itens são salvos no Firebase?
 
-Resposta: Recentemente o Firebase lançou uma API para acessar a SDK usando Python, então eu escrevi um [_item pipeline_](https://doc.scrapy.org/en/latest/topics/item-pipeline.html) chamado [scrapy-firebase](https://github.com/skhaz/scrapy-firebase) que usa essa API para escrever no banco de dados do Firebase, a cada item coletado do Scrapy, o método [process_item](https://github.com/skhaz/scrapy-firebase/blob/master/scrapy_firebase.py#L35) do pipeline é incado, nesse método eu salvo no Firebase.
+Resposta: Recentemente, o Firebase lançou uma API para acessar a SDK usando Python, então eu escrevi um [_item pipeline_](https://doc.scrapy.org/en/latest/topics/item-pipeline.html) chamado [scrapy-firebase](https://github.com/skhaz/scrapy-firebase) que usa essa API para escrever no banco de dados do Firebase, a cada item coletado do Scrapy, o método [process_item](https://github.com/skhaz/scrapy-firebase/blob/master/scrapy_firebase.py#L35) do pipeline é incado, nesse método eu salvo no Firebase.
 
 ```python
 class FirebasePipeline(BaseItemExporter):
