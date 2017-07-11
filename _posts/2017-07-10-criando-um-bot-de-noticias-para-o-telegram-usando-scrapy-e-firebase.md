@@ -154,3 +154,6 @@ class FirebasePipeline(BaseItemExporter):
 ### Próximos passos
 
 Ao mesmo tempo em que eu notifico o [canal](https://t.me/RegisBittencourt) do Telegram, estou usando o [Cloud Natural Language API](https://cloud.google.com/natural-language/) para classificar a notícia, e, em seguida, salvo no [BigQuery](https://bigquery.cloud.google.com/). Após algum tempo, acredito que será possível usar o `BigQuery` para determinar quais trechos, quando e o quê costuma dar mais problemas à rodovia, através de [_data mining_](https://en.wikipedia.org/wiki/Data_mining)!
+
+Código-fonte: [https://github.com/skhaz/highway-overseer](https://github.com/skhaz/highway-overseer)
+
