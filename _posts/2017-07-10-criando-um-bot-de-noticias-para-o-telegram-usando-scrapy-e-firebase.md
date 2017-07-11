@@ -123,7 +123,7 @@ Essa função é bem simples; basicamente, em qualquer evento de _onCreate_ ela 
 
 ### E como os itens são salvos no Firebase?
 
-Resposta: Recentemente, o Firebase lançou uma API para acessar a SDK usando Python, então eu escrevi um [_item pipeline_](https://doc.scrapy.org/en/latest/topics/item-pipeline.html) chamado [scrapy-firebase](https://github.com/skhaz/scrapy-firebase) que usa essa API para escrever no banco de dados do Firebase, a cada item coletado do Scrapy, o método [process_item](https://github.com/skhaz/scrapy-firebase/blob/master/scrapy_firebase.py#L35) do pipeline é incado, nesse método eu salvo no Firebase.
+Resposta: Recentemente, o Firebase lançou uma API para acessar a SDK usando Python, então eu escrevi um [_item pipeline_](https://doc.scrapy.org/en/latest/topics/item-pipeline.html) chamado [scrapy-firebase](https://github.com/skhaz/scrapy-firebase) que usa essa API para escrever no banco de dados do Firebase, a cada item coletado do Scrapy, o método [process_item](https://github.com/skhaz/scrapy-firebase/blob/master/scrapy_firebase.py#L35) do pipeline é chamado, e nesse método é salvo o item no Firebase.
 
 ```python
 class FirebasePipeline(BaseItemExporter):
