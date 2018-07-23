@@ -46,6 +46,8 @@ def run():
         next_player, player = player, next_player
 ```
 
+### Passo a passo
+
 ```python
 board = np.zeros((3, 3), dtype=np.int)  # Cria um "tabuleiro" 3x3 inicializado com zero.
 players = np.array([1, 2])  # Cria os jogadores.
@@ -103,6 +105,8 @@ board[picked / 3][picked % 3] = player
 # Troca quem joga na próxima interação.
 next_player, player = player, next_player
 ```
+
+### A saída
 
 O _script_ escreve na saída `stdout` o resultado de cada interação, o formato de saída é este:
 
