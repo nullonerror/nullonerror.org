@@ -42,8 +42,66 @@ def run():
         sys.stdout.write('0')
 
         picked = np.random.choice(available_slots)
-        next_player, player = player, next_player
         board[picked / 3][picked % 3] = player
+        next_player, player = player, next_player
+```
+
+```python
+board = np.zeros((3, 3), dtype=np.int)  # Cria um "tabuleiro" 3x3 inicializado com zero.
+players = np.array([1, 2])  # Cria os jogadores.
+np.random.shuffle(players)  # Embaralha os jogadores.
+player, next_player = players[:]  # Após embaralhar, separamos os jogadores já sorteados.
+```
+
+```python
+sys.stdout.write(str(player))  # Imprime quem está jogando.
+sys.stdout.write(''.join(map(str, board.flatten())))  # Imprime o estado atual do tabuleiro.
+```
+
+```python
+# Filtra pelas posições livres do tabuleiro.
+slots = (board == 0).flatten()
+available_slots = np.where(slots == True)[0]
+
+# Caso não haja nenhuma posição livre, declara empate e termina o `loop`.
+if available_slots.size == 0:
+    sys.stdout.write('3')
+    break
+```
+
+```python
+# Esse trecho é um pouco mais complexo, e graças ao numpy
+# a verificação do jogador vitoriosos é mais simplificada.
+
+# Cria uma máscara em relação o jogador atual e o tabuleiro.
+mask = board == player
+
+# Verifica a condição de vitória na horizontal e/ou vertical.
+out = mask.all(0).any() | mask.all(1).any()
+
+# Verifica a condição de vitória na diagonal.
+out |= np.diag(mask).all() | np.diag(mask[:, ::-1]).all()
+
+# Caso haja uma condição que satisfaça a vitória, imprime o jogador vitorioso.
+if out:
+    sys.stdout.write(str(player))
+    break
+```
+
+```python
+# Ninguém ganhou, o jogo continua.
+sys.stdout.write('0')
+```
+
+```python
+# Escolhe uma posição do tabuleiro que esteja livre.
+picked = np.random.choice(available_slots)
+
+# Atribui o número do jogador ao lugar do tabuleiro sorteado.
+board[picked / 3][picked % 3] = player
+
+# Troca quem joga na próxima interação.
+next_player, player = player, next_player
 ```
 
 O _script_ escreve na saída `stdout` o resultado de cada interação, o formato de saída é este:
