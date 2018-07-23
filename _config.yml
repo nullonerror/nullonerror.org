@@ -16,7 +16,7 @@ twitter:
 kramdown:
   input: GFM
 
-gems:
+plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
