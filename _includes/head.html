@@ -11,16 +11,9 @@
     {% endif %}
   </title>
 
+  <link rel="stylesheet" href="{{ site.baseurl }}/styles.css">
   <link rel="shortcut icon" href="{{ site.baseurl }}/public/favicon.ico">
-
   <link type="application/atom+xml" rel="alternate" href="{{ site.baseurl }}/feed.xml" title="{{ site.title }}">
-
-  <style type="text/css">
-    {% capture include_to_scssify %}
-      {% include styles.scss %}
-    {% endcapture %}
-    {{ include_to_scssify | scssify | strip_newlines }}
-  </style>
 
   {% seo %}
 
