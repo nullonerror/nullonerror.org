@@ -2,6 +2,14 @@
   <meta charset="UTF-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics }}" />
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '{{ site.analytics }}');
+  </script>
 
   <title>
     {% if page.title == "Home" %}
@@ -21,7 +29,7 @@
     {% endcapture %}
     {{ include_to_scssify | scssify | strip_newlines }}
   </style>
-  
+
   {% seo %}
 
 </head>
