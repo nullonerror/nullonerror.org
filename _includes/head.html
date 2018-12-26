@@ -1,23 +1,12 @@
 <head>
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics }}"></script>
-
-  <title>
-    {% if page.title == "Home" %}
-      {{ site.title }} &middot; {{ site.tagline }}
-    {% else %}
-      {{ page.title }} &middot; {{ site.title }}
-    {% endif %}
-  </title>
-
   <link rel="stylesheet" href="{{ site.baseurl }}/styles.css" type="text/css">
-
   <link rel="shortcut icon" href="{{ site.baseurl }}/public/favicon.ico">
-
   <link type="application/atom+xml" rel="alternate" href="{{ site.baseurl }}/feed.xml" title="{{ site.title }}">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics }}"></script>
 
   {% seo %}
 
