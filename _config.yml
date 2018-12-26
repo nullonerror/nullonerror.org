@@ -4,7 +4,7 @@ author: skhaz
 url: https://nullonerror.org
 analytics: UA-28518341-1
 permalink: pretty
-baseurl: ""
+baseurl: "https://nullonerror.org/"
 
 sass:
   sass_dir: _sass
