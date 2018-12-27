@@ -6,9 +6,7 @@ title: >
 
 Inspirado pelo projeto [AlphaGo](https://deepmind.com/blog/alphago-zero-learning-scratch/), um projeto que aprende a jogar Go sozinho usando _machine learning_, decidi criar um projeto semelhante, e o jogo escolhido foi... _O jogo da velha_!
 
-<p align="center">
-  <img src="/public/2018-07-22-o-codigo-mais-bonito-que-ja-escrevi/old-lady.jpg" alt="hein?"/>
-</p>
+![hein?](/public/2018-07-22-o-codigo-mais-bonito-que-ja-escrevi/old-lady.jpg){: .center }
 
 Pois é…
 

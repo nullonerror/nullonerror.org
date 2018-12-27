@@ -12,7 +12,7 @@ Pensando nisso, decidi escrever um pequeno `bot` para o Telegram que publica num
 
 ### Web scraping
 
-![Squitter](/public/2017-07-10-criando-um-bot-de-noticias-para-o-telegram-usando-scrapy-e-firebase/squitter.jpg)
+![Squitter](/public/2017-07-10-criando-um-bot-de-noticias-para-o-telegram-usando-scrapy-e-firebase/squitter.jpg){: .center }
 
 O primeiro passo é extrair as informações do site. Eu optei por utilizar o framework [Scrapy](https://scrapy.org/), por alguns motivos que ficarão bem claros abaixo e por ter bastante experiência escrevendo web crawlers com o Scrapy - eu não pretendo escrever um tutorial a respeito neste artigo, isso ficará para uma próxima oportunidade.
 
@@ -156,4 +156,3 @@ class FirebasePipeline(BaseItemExporter):
 Ao mesmo tempo em que eu notifico o [canal](https://t.me/RegisBittencourt) do Telegram, estou usando o [Cloud Natural Language API](https://cloud.google.com/natural-language/) para classificar a notícia, e, em seguida, salvo no [BigQuery](https://bigquery.cloud.google.com/). Após algum tempo, acredito que será possível usar o `BigQuery` para determinar quais trechos, quando e o quê costuma dar mais problemas à rodovia, através de [_data mining_](https://en.wikipedia.org/wiki/Data_mining)!
 
 Código-fonte: [https://github.com/skhaz/highway-overseer](https://github.com/skhaz/highway-overseer)
-

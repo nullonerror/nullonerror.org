@@ -173,4 +173,4 @@ _Essa técnica pode ser usada para ocultar não somente textos, mas como outras 
 
 O código fonte se encontra neste [gist](https://gist.github.com/skhaz/4e83e245f41560634be4)
 
-![image](/public/2015-04-05-escondendo-informacoes-dentro-de-imagens/gioconda_stenog.png)
+![decifra-me ou devoro-te](/public/2015-04-05-escondendo-informacoes-dentro-de-imagens/gioconda_stenog.png){: .center }

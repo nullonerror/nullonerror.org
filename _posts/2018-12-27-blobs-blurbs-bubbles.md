@@ -206,9 +206,8 @@ for i in {1..10}; do ./a.out; done
 > Acredito que se utilizado compressão no SQLite o uso de disco seria reduzido e como consequência resultados ainda melhores.
 
 ## Patches everywhere!
-<p align="center">
-  <img src="/public/2018-12-27-blobs-blurbs-bubbles/patches.jpg" alt="metalhead with lots of patches"/>
-</p>
+
+![metalhead with lots of patches](/public/2018-12-27-blobs-blurbs-bubbles/patches.jpg){: .center }
 
 Uma das principais características do software é que ele não funciona e precisa constantemente ser remendado, e nos jogos não é diferente.
 
@@ -253,6 +252,4 @@ Além de todas essas vantagens, o uso do SQLite ainda possibilita o [data-driven
 Pretendo utilizar o SQLite como descrito num novo projeto chamado [Winterphobos](https://github.com/skhaz/winterphobos), um motor de jogos minimalista, e uma das premissas é ser totalmente _"scriptável"_ em [lua](https://www.lua.org/) com [entity–component–system
 ](https://en.wikipedia.org/wiki/entity-component-system).
 
-<p align="center">
-  <img src="/public/2018-12-27-blobs-blurbs-bubbles/vaultboy.jpg" alt="metalhead with lots of patches"/>
-</p>
+![vault boy](/public/2018-12-27-blobs-blurbs-bubbles/vaultboy.jpg){: .center }

@@ -7,7 +7,7 @@ published: true
 <link rel="prefetch" href="/public/2016-01-28-turbinando-o-carregamento-de-imagens-remotas-no-android/normal.gif">
 <link rel="prefetch" href="/public/2016-01-28-turbinando-o-carregamento-de-imagens-remotas-no-android/optimized.gif">
 
-![image](/public/2016-01-28-turbinando-o-carregamento-de-imagens-remotas-no-android/android-fast.jpg)
+![Android](/public/2016-01-28-turbinando-o-carregamento-de-imagens-remotas-no-android/android-fast.jpg){: .center }
 
 Recentemente, precisei fazer um fine tuning de carregamento de imagens num app.
 
