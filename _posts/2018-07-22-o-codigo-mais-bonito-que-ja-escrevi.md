@@ -6,9 +6,11 @@ title: >
 
 Inspirado pelo projeto [AlphaGo](https://deepmind.com/blog/alphago-zero-learning-scratch/), um projeto que aprende a jogar Go sozinho usando _machine learning_, decidi criar um projeto semelhante, e o jogo escolhido foi... _O jogo da velha_!
 
-![Hein?](/public/2018-07-22-o-codigo-mais-bonito-que-ja-escrevi/old-lady.jpg)
+<p align="center">
+  <img src="/public/2018-07-22-o-codigo-mais-bonito-que-ja-escrevi/old-lady.jpg" alt="hein?"/>
+</p>
 
-Pois é… 
+Pois é…
 
 ### O código
 
@@ -119,10 +121,6 @@ PTTTTTTTTTR
 * `R` - Indica o resultado,  **0** caso ainda não haja uma vitória, **3** caso seja um empate ou **1** ou **2** caso um dos jogadores tenha vencido.
 
 ### A partida
-
-Vamos narrar uma emocionante partida com ele:
-
-![Galvão Bueno](/public/2018-07-22-o-codigo-mais-bonito-que-ja-escrevi/galvao-bueno.jpg)
 
 ```shell
 $ python generator.py
