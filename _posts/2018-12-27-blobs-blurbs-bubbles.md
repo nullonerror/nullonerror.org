@@ -19,7 +19,7 @@ Atualmente alguns requerimentos mencionados não fazem muito sentido, porém est
 
 Sempre gostei da ideia de empacotar os `assets` do jogo num único arquivo comprimido. O [PhysicsFS](https://icculus.org/physfs/) permite “montar” diretórios e arquivos comprimidos como se fossem um único diretório, com todos os arquivos estruturados dentro dos seus respectivos diretórios; algo semelhante ao que o [UnionFS](http://unionfs.filesystems.org/), [OverlayFS](https://www.kernel.org/doc/Documentation/filesystems/overlayfs.txt) e similares fazem.
 
-Outra vantagem é a _segurança_, pois o processo fica restrito restrito à aquele(s) diretório(s) previamente _especificado(s)_.
+Outra vantagem é a _segurança_, pois o processo fica restrito à aquele(s) diretório(s) previamente _especificado(s)_.
 
 Usar o `physfs` com a [SDL](https://www.libsdl.org/) é bem simples, veja como é o processo de montar um arquivo comprimido e carregar uma imagem:
 
@@ -42,6 +42,7 @@ int main(int argc, char *argv[]) {
 
   // carrega a textura.
   SDL_Surface * surface = IMG_Load_RW(rwops, 1);
+  SDL_RWclose(rwops);
   SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, surface);
   SDL_FreeSurface(surface);
 
@@ -145,9 +146,9 @@ sqlite3_step(stmt);
 // criamos um `SDL_RWops` com os bytes do blob.
 int bytes = sqlite3_column_bytes(stmt, 0);
 const void * buffer = sqlite3_column_blob(stmt, 0);
-SDL_RWops * rwops = SDL_RWFromMem(buffer, (sizeof(unsigned char) * bytes));
+SDL_RWops * rwops = SDL_RWFromConstMem(buffer, (sizeof(unsigned char) * bytes));
 
-// finaliza.
+// finaliza (responsável por liberar a memória retornada por sqlite3_column_blob e outros recursos.)
 sqlite3_reset(stmt);
 
 // (como anteriormente) carrega a textura.
