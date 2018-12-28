@@ -211,7 +211,7 @@ for i in {1..10}; do ./a.out; done
 
 Uma das principais características do software é que ele não funciona e precisa constantemente ser remendado, e nos jogos não é diferente.
 
-O MPQ tem um mecanismo de patches, como na época a maioria dos jogos eram distribuídas em mídias somente leitura, como o CD-ROM, era preciso uma outra abordagem, já que não era possível reescrever o `.mpq` original, portanto era criado uma espécie de corrente, então após o jogo carregar o jogo, as alterações eram aplicadas em cima, na mesma sequencia de que foram publicadas.
+O MPQ tem um mecanismo de patches, como na época a maioria dos jogos eram distribuídas em mídias somente leitura, como o CD-ROM, era preciso uma outra abordagem, já que não era possível reescrever o `.mpq` original, portanto era criado uma espécie de corrente, então após o jogo carregar, as alterações eram aplicadas em cima, na mesma sequencia de que foram publicadas.
 
 A ideia por trás de usar o SQLite no lugar do PhysicsFS é de aproveitar algumas características de um banco de dados, que é de… criar, atualizar, modificar e deletar de forma atômica!
 
