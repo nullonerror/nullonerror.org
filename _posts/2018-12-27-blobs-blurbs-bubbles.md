@@ -42,7 +42,6 @@ int main(int argc, char *argv[]) {
 
   // carrega a textura.
   SDL_Surface * surface = IMG_Load_RW(rwops, 1);
-  SDL_RWclose(rwops);
   SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, surface);
   SDL_FreeSurface(surface);
 
