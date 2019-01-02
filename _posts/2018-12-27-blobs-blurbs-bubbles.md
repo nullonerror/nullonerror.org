@@ -93,7 +93,7 @@ $ sqlite3 assets.db
 SQLite version 3.24.0 2018-06-04 14:10:15
 Enter ".help" for usage hints.
 sqlite> .schema assets
-CREATE TABLE assets (filename TEXT PRIMARY KEY, blob BLOB);
+CREATE TABLE assets (key TEXT PRIMARY KEY, blob BLOB);
 sqlite> .indexes assets
 sqlite_autoindex_assets_1
 ```
