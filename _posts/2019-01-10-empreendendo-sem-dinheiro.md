@@ -10,9 +10,9 @@ E o desafio da semana foi criar um daqueles projetos de [“media indoor”](htt
 
 Então pensei: “já sei vou usar [grpc](https://grpc.io/), [s3 rsync](https://rclone.org/), [elastic transcoder](https://aws.amazon.com/elastictranscoder/), [fastly](https://www.fastly.com/), frontend do admin em [react](https://reactjs.org) e é claro [kubernetes](https://kubernetes.io/)!”
 
-Já no cliente, que é responsável por tocar os vídeos...: “vou escrever em [Qt](https://www.qt.io), criar a interface em [QML](https://en.wikipedia.org/wiki/QML), [boost.asio](https://www.boost.org/doc/libs/1_69_0/doc/html/boost_asio.html) para o meu downloader e criar uma distribuição de Linux embarcado usando o [yocto](https://www.yoctoproject.org) !“.
+Já no cliente, que é responsável por tocar os vídeos...: “vou escrever em [Qt](https://www.qt.io), criar a interface em [QML](https://en.wikipedia.org/wiki/QML), usar [boost.asio](https://www.boost.org/doc/libs/1_69_0/doc/html/boost_asio.html) para o meu downloader e criar uma distribuição de Linux embarcado usando o [yocto](https://www.yoctoproject.org) !“.
 
-Nada disso.
+**Nope...**
 
 ### Painel administrativo
 
