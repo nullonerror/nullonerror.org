@@ -97,6 +97,8 @@ watch() {
 
 De tempos em tempos é necessário remover os arquivos antigos e downloads incompletos; a função `recycle` remove todos os arquivos do tipo vídeo modificados pela última vez há mais de 7 dias e que não estão sendo usados:
 
+> A razão de ser alguns dias depois e não imediatamente é ser maleável caso tenha sido algum equívoco.
+
 ```shell
 recycle() {
   declare -a args=(
