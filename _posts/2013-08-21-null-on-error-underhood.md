@@ -15,6 +15,8 @@ Já havia feito outros projetos que rodam sob o AppEngine, inclusive a primeira 
 
 Porém, eu queria fazer algo diferente, queria estudar outros frameworks, e foi então que decidi usar o [bottle](http://bottlepy.org/) e o [jinja2](http://jinja.pocoo.org/) para renderização de templates. O resultado foi que aprendi **muito**, inclusive cheguei a escrever alguns filtros para o jinja2: um deles é o [imgur](https://github.com/skhaz/nullonerror/blob/experimental/imgur.py), responsável por subir imagens no imgur quando encontra a tag imgur e depois troca pela tag img do html; e o outro, ao encontrar a tag code, invocava o pygments, que por sua vez fazia parser do código e o coloria, mas acabei descartando este filtro e deixando essa tarefa com o cliente, usando o [prettify](http://code.google.com/p/google-code-prettify/).
 
+![](http://i.imgur.com/oQdnf2x.png){: .center }
+
 Como faço uso de uma quantidade considerável de javascript, pesquisei por algumas soluções de _lazy loading_, e a que mais me agradou foi o [RequireJS](http://www.requirejs.org/). Vamos ver como ficou essa carga logo abaixo:
 
 ``` javascript
