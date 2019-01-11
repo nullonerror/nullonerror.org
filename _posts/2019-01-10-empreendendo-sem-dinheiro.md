@@ -12,7 +12,7 @@ Então pensei: “já sei vou usar [grpc](https://grpc.io/), [s3 rsync](https://
 
 Já no cliente, que é responsável por tocar os vídeos...: “vou escrever em [Qt](https://www.qt.io), criar a interface em [QML](https://en.wikipedia.org/wiki/QML), usar [boost.asio](https://www.boost.org/doc/libs/1_69_0/doc/html/boost_asio.html) para o meu downloader e criar uma distribuição de Linux embarcado usando o [yocto](https://www.yoctoproject.org) !“.
 
-**Nope...**
+> **"The best code is no code at all."**
 
 ### Painel administrativo
 
