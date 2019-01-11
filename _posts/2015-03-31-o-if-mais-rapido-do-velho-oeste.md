@@ -3,7 +3,7 @@ layout: post
 title: >
   O if mais rápido do velho oeste
 ---
-![image](/public/2015-03-31-o-if-mais-rapido-do-velho-oeste/sonic.png)
+![image](/public/2015-03-31-o-if-mais-rapido-do-velho-oeste/sonic.png){: .center }
 
 Provavelmente já deve ter se deparado com algum código semelhante a este, principalmente no kernel do Linux:
 
