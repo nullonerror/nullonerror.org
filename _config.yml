@@ -23,3 +23,9 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
+
+exclude:
+  - .git
+  - .jekyll-cache
+  - LICENSE.md
+  - README.md
