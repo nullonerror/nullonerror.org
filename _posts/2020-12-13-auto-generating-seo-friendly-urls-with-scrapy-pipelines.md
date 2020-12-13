@@ -11,11 +11,11 @@ In the *URL* I wanted the title without special symbols, only ASCII and at the e
 ``` python
 class PreparePipeline():
   def process_item(self, item, spider):
-    url = item["url"]
-
     title = item.get("title")
     if title is None:
       raise DropItem(f"No title were found on item: {item}.")
+
+    url = item["url"]
 
     N = 4
     sha256 = hashlib.sha256(url.encode()).digest()
