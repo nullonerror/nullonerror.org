@@ -2,12 +2,10 @@ title: NULL on error
 tagline: flipping bits whilst updating pixels
 url: https://nullonerror.org
 author: skhaz
-
-analytics: UA-28518341-1
-
+baseurl: ""
 permalink: pretty
 
-baseurl: ""
+analytics: UA-28518341-1
 
 sass:
   sass_dir: _sass
@@ -25,4 +23,3 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
-  - jemoji
