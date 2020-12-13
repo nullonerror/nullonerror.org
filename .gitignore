@@ -48,3 +48,6 @@ node_modules
 Session.vim
 .netrwhist
 *~
+
+# Jekyll
+.jekyll-cache
