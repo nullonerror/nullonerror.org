@@ -174,32 +174,9 @@ vim /home/ubuntu/.config/gphotos-sync/client_secret.json
 
 The content bellow is based and simplified version of [Scheduling compute instances with Cloud Scheduler by Google](https://cloud.google.com/scheduler/docs/start-and-stop-compute-engine-instances-on-a-schedule#gcloud_3)
 
-gcloud pubsub topics create start-instance-event
+Back to your VM and add the label `runtime` with the value `weekly`, this is needed by the *function* bellow to know which instances should be started or shutdown.
 
-gcloud functions deploy startInstancePubSub \
-    --trigger-topic start-instance-event \
-    --runtime nodejs12 \
-    --allow-unauthenticated
-
-gcloud pubsub topics create stop-instance-event
-
-gcloud functions deploy stopInstancePubSub \
-    --trigger-topic stop-instance-event \
-    --runtime nodejs12 \
-    --allow-unauthenticated
-
-gcloud beta scheduler jobs create pubsub startup-weekly-instances \
-    --schedule '0 0 * * SUN' \
-    --topic start-instance-event \
-    --message-body '{"zone":"us-central1-a", "label":"runtime=weekly"}' \
-    --time-zone 'America/Sao_Paulo'
-
-gcloud beta scheduler jobs create pubsub shutdown-dev-instances \
-    --schedule '0 0 * * MON' \
-    --topic stop-instance-event \
-    --message-body '{"zone":"us-central1-a", "label":"runtime=weekly"}' \
-    --time-zone 'America/Sao_Paulo'
-
+Create a new directory, in my case I will call `functions` and add two files:
 
 `index.js`
 
@@ -264,6 +241,8 @@ exports.stopInstancePubSub = async (event, context, callback) => {
 };
 ```
 
+And
+
 `package.json`
 
 ``` json
@@ -274,4 +253,52 @@ exports.stopInstancePubSub = async (event, context, callback) => {
     "@google-cloud/compute": "^2.4.1"
   }
 }
+```
+
+Create a *PubSub* topic to start the instance.
+
+``` bash
+gcloud pubsub topics create start-instance-event
+```
+
+Now deploy the `startInstancePubSub` function
+
+``` bash
+gcloud functions deploy startInstancePubSub \
+    --trigger-topic start-instance-event \
+    --runtime nodejs12 \
+    --allow-unauthenticated
+```
+
+And another *PubSub* topic to stop the instance.
+
+``` bash
+gcloud pubsub topics create stop-instance-event
+```
+
+And the `stopInstancePubSub` function
+
+``` bash
+gcloud functions deploy stopInstancePubSub \
+    --trigger-topic stop-instance-event \
+    --runtime nodejs12 \
+    --allow-unauthenticated
+```
+
+And finally, let's create two *Cloud Scheduler* to publish on the topics on *Sunday* and *Monday* at midnight.
+
+```
+gcloud beta scheduler jobs create pubsub startup-weekly-instances \
+    --schedule '0 0 * * SUN' \
+    --topic start-instance-event \
+    --message-body '{"zone":"us-central1-a", "label":"runtime=weekly"}' \
+    --time-zone 'America/Sao_Paulo'
+```
+
+```
+gcloud beta scheduler jobs create pubsub shutdown-dev-instances \
+    --schedule '0 0 * * MON' \
+    --topic stop-instance-event \
+    --message-body '{"zone":"us-central1-a", "label":"runtime=weekly"}' \
+    --time-zone 'America/Sao_Paulo'
 ```
