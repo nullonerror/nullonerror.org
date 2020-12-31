@@ -94,7 +94,9 @@ sudo su
 
 Let's create a service to gcsfuse, responsible to mount the bucket locally using the FUSE.
 
+``` bash
 cat <<EOF > /etc/systemd/system/gcsfuse.service 
+# Script stolen from https://gist.github.com/craigafinch/292f98618f8eadc33e9633e6e3b54c05
 [Unit]
 Description=Google Cloud Storage FUSE mounter
 After=local-fs.target network-online.target google.service sys-fs-fuse-connections.mount
@@ -110,6 +112,7 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
+```
 
 Enable and start the service:
 
@@ -129,9 +132,13 @@ ExecStart=/home/ubuntu/synchronize.py
 EOF
 ```
 
+And enable the service.
+
 ``` bash
 systemctl enable gphotos-sync.service
 ```
+
+Now let's create a *timer* to run 1 minute after the boot the `gphotos-sync.service` with `gcsfuse.service` as dependecy.
 
 ``` bash
 cat <<EOF >/etc/systemd/system/gphotos-sync.timer 
@@ -159,13 +166,13 @@ Now follow [https://docs.google.com/document/d/1ck1679H8ifmZ_4eVbDeD_-jezIcZ-j6M
 
 ``` bash
 mkdir -p /home/ubuntu/.config/gphotos-sync/
-# copy the contents of the json to the file bellow
+# Copy the contents of the json to the file bellow
 vim /home/ubuntu/.config/gphotos-sync/client_secret.json 
 ```
 
-#### Schedule startup and shutdown of the VM
+### Schedule startup and shutdown of the VM
 
-https://cloud.google.com/scheduler/docs/start-and-stop-compute-engine-instances-on-a-schedule#gcloud_3
+The content bellow is based and simplified version of [Scheduling compute instances with Cloud Scheduler by Google](https://cloud.google.com/scheduler/docs/start-and-stop-compute-engine-instances-on-a-schedule#gcloud_3)
 
 gcloud pubsub topics create start-instance-event
 
