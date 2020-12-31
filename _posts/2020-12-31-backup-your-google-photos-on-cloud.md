@@ -170,6 +170,26 @@ mkdir -p /home/ubuntu/.config/gphotos-sync/
 vim /home/ubuntu/.config/gphotos-sync/client_secret.json 
 ```
 
+### Testing
+
+Due a issue on `gcsfuse`, I was unable to create the backup dir directly on the bucket. The workaround is create a *temp* directory and start the `gphotos-sync` manually first.
+
+``` bash
+mkdir -p ~/temp/username/0
+cd ~/temp
+gphotos-sync --ntfs --skip-albums --photos-path . username/0
+# gphotos-sync will ask for a token, paste it and CTRL-C to stop the download of photos.
+cp ~/temp/username/ ~/tank1/photos/username
+```
+
+Verify if it is working.
+
+``` bash
+./synchronize.py
+```
+
+After executing the command above, the script should start the backup. You can wait until it finishes or continue to the steps below.
+
 ### Schedule startup and shutdown of the VM
 
 The content bellow is based and simplified version of [Scheduling compute instances with Cloud Scheduler by Google](https://cloud.google.com/scheduler/docs/start-and-stop-compute-engine-instances-on-a-schedule#gcloud_3)
