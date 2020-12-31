@@ -95,7 +95,7 @@ sudo su
 Let's create a service to gcsfuse, responsible to mount the bucket locally using the FUSE.
 
 ``` bash
-cat <<EOF > /etc/systemd/system/gcsfuse.service 
+cat <<EOF >/etc/systemd/system/gcsfuse.service 
 # Script stolen from https://gist.github.com/craigafinch/292f98618f8eadc33e9633e6e3b54c05
 [Unit]
 Description=Google Cloud Storage FUSE mounter
@@ -122,7 +122,7 @@ systemctl start gcsfuse.service
 ```
 
 ``` bash
-cat <<EOF > /etc/systemd/system/gphotos-sync.service 
+cat <<EOF >/etc/systemd/system/gphotos-sync.service 
 [Unit]
 Description=Run gphotos-sync for each account
 
