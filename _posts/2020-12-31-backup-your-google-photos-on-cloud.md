@@ -1,7 +1,7 @@
 ---
 layout: post
 title: >
-  Backup your Google Photos to Google Cloud Storage
+  Periodically backup your Google Photos to Google Cloud Storage
 ---
 
 ### Why?
