@@ -86,7 +86,7 @@ Give *execute* permission.
 chmod u+x synchronize.py
 ```
 
-Now let's create some __systemd__ scripts.
+Now let's create some *systemd* scripts.
 
 ```
 sudo su
@@ -322,3 +322,5 @@ gcloud beta scheduler jobs create pubsub shutdown-dev-instances \
     --message-body '{"zone":"us-central1-a", "label":"runtime=weekly"}' \
     --time-zone 'America/Sao_Paulo'
 ```
+
+After this setup, your VM will start every *Sunday*, backup all your photos of all accounts and shutdown on the *Monday*.
