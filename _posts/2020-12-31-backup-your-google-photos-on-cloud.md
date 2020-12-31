@@ -5,13 +5,13 @@ title: >
 ---
 
 ### Why?
-Google Cloud Storage is cheaper, and you pay only what you use than [Google One](https://one.google.com/). Also, you can erase any photo, and you still have a copy of that.
+Google Cloud Storage is cheaper, and you pay only for what you use than [Google One](https://one.google.com/). Also, you can erase any photo, and you still have a copy of that.
 
 ### Installation
 
 Create a Compute Engine (a VM).
 
-If you choosed Ubuntu, first of all, remove `snap`
+If you choose Ubuntu, first of all, remove `snap`
 
 ``` bash
 sudo apt autoremove --purge snapd
@@ -43,7 +43,7 @@ sudo apt install -y python3-pip
 pip3 install gphotos-sync
 ```
 
-I created a small Python script to deal with multiple Google's accounts. I'll explain later how it works.
+I created a small Python script to deal with multiple Google accounts. I'll explain later how it works.
 
 ``` python
 cat <<EOF > /home/ubuntu/synchronize.py
@@ -138,7 +138,7 @@ And enable the service.
 systemctl enable gphotos-sync.service
 ```
 
-Now let's create a *timer* to run 1 minute after the boot the `gphotos-sync.service` with `gcsfuse.service` as dependecy.
+Now let's create a *timer* to run 1 minute after the boot the `gphotos-sync.service` with `gcsfuse.service` as dependency.
 
 ``` bash
 cat <<EOF >/etc/systemd/system/gphotos-sync.timer 
@@ -172,7 +172,7 @@ vim /home/ubuntu/.config/gphotos-sync/client_secret.json
 
 ### Testing
 
-Due a issue on `gcsfuse`, I was unable to create the backup dir directly on the bucket. The workaround is create a *temp* directory and start the `gphotos-sync` manually first.
+Due to an issue with `gcsfuse`, I was unable to create the backup dir directly on the bucket. The workaround is to create a *temp* directory and start the `gphotos-sync` manually first.
 
 ``` bash
 mkdir -p ~/temp/username/0
@@ -192,11 +192,11 @@ After executing the command above, the script should start the backup. You can w
 
 ### Schedule startup and shutdown of the VM
 
-The content bellow is based and simplified version of [Scheduling compute instances with Cloud Scheduler by Google](https://cloud.google.com/scheduler/docs/start-and-stop-compute-engine-instances-on-a-schedule#gcloud_3)
+The content below is based on and simplified version of [Scheduling compute instances with Cloud Scheduler by Google](https://cloud.google.com/scheduler/docs/start-and-stop-compute-engine-instances-on-a-schedule#gcloud_3)
 
-Back to your VM and add the label `runtime` with the value `weekly`, this is needed by the *function* bellow to know which instances should be started or shutdown.
+Back to your VM and add the label `runtime` with the value `weekly`, this is needed by the *function* below to know which instances should be started or shutdown.
 
-Create a new directory, in my case I will call `functions` and add two files:
+Create a new directory, in my case, I will call `functions` and add two files:
 
 `index.js`
 
@@ -323,4 +323,4 @@ gcloud beta scheduler jobs create pubsub shutdown-dev-instances \
     --time-zone 'America/Sao_Paulo'
 ```
 
-After this setup, your VM will start every *Sunday*, backup all your photos of all accounts and shutdown on the *Monday*.
+After this setup, your VM will start every *Sunday*, backup all your photos of all accounts and shutdown on *Monday*.
