@@ -316,7 +316,7 @@ gcloud beta scheduler jobs create pubsub startup-weekly-instances \
 ```
 
 ```
-gcloud beta scheduler jobs create pubsub shutdown-dev-instances \
+gcloud beta scheduler jobs create pubsub shutdown-weekly-instances \
     --schedule '0 0 * * MON' \
     --topic stop-instance-event \
     --message-body '{"zone":"us-central1-a", "label":"runtime=weekly"}' \
