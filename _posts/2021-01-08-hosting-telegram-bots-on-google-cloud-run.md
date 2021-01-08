@@ -4,7 +4,7 @@ title: >
   Hosting Telegram bots on Cloud Run for free
 ---
 
-I write a lot of [Telegram bots](https://core.telegram.org/bots) using the library [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot). Writing Telegram bots is funny, but you will also need someplace to host them.
+I write a lot of [Telegram bots](https://core.telegram.org/bots) using the library [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot). Writing Telegram bots is fun, but you will also need someplace to host them.
 
 I personally like the new [Google Cloud Run](https://cloud.google.com/run); or run, for short, is perfect because it has a *"gorgeous"* [free quota](https://cloud.google.com/run/pricing) that should be mostly sufficient to host your bots, also, and is it super simple to deploy and get running.
 
