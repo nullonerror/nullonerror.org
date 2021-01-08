@@ -46,7 +46,7 @@ pyyaml==5.3.1
 
 `Dockerfile`
 
-``` Dockerfile
+``` dockerfile
 FROM python:3.8-slim
 
 ENV PYTHONUNBUFFERED True
