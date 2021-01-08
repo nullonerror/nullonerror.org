@@ -87,7 +87,7 @@ gcloud beta run deploy your-bot-name \
     --project your-project-name
 ```
 
-After this set the Telegram bot `webHook` using *cURL*
+After this, you will receive a public *URL* of your run, and you will need to set the Telegram bot `webHook` using *cURL*
 
 ``` bash
 curl "https://api.telegram.org/botYOUR-BOT:TOKEN/setWebhook?url=https://your-bot-name-uuid-uc.a.run.app"
