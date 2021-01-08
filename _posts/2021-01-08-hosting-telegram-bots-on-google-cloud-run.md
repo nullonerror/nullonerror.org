@@ -10,7 +10,7 @@ I personally like the new [Google Cloud Run](https://cloud.google.com/run); or r
 
 To create Telegram bots, first, you need to talk to [BotFather](https://t.me/botfather) and get a *TOKEN*.
 
-Secondly, you need some coding. As i mentioned before, you can use *python-telegram-bot* to do your bots. Here is the [documentation](https://python-telegram-bot.org/).
+Secondly, you need some coding. As I mentioned before, you can use *python-telegram-bot* to do your bots. Here is the [documentation](https://python-telegram-bot.org/).
 
 ### Code
 
