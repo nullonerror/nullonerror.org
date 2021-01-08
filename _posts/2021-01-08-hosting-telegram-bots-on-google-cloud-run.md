@@ -4,9 +4,13 @@ title: >
   Hosting Telegram bots on Cloud Run for free
 ---
 
-I write a lot of [Telegram bots](https://core.telegram.org/bots) using the library [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot). Writing Telegram bots is funny, but you will also need some place to host them, I personally like the new [Google Cloud Run](https://cloud.google.com/run); *run*, the short-form, is perfect because has a *"gorgeous"* [free quota](https://cloud.google.com/run/pricing) and is it super simply to deploy and get running.
+I write a lot of [Telegram bots](https://core.telegram.org/bots) using the library [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot). Writing Telegram bots is funny, but you will also need someplace to host them.
 
-Here is the source:
+I personally like the new [Google Cloud Run](https://cloud.google.com/run); or run, for short, is perfect because it has a *"gorgeous"* [free quota](https://cloud.google.com/run/pricing) that should be mostly sufficient to host your bots, also, and is it super simple to deploy and get running.
+
+To create Telegram bots, first, you need to talk to [BotFather](https://t.me/botfather) and get a *TOKEN*.
+
+Secondly, you need some coding. As i mentioned before, you can use *python-telegram-bot* to do your bots. Here is the [documentation](https://python-telegram-bot.org/).
 
 `main.py`
 
@@ -60,10 +64,9 @@ COPY . ./
 CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
 ```
 
-
 ### Deployment
 
-First run the command bellow to set the default region (optionally).
+Finally, you need to deploy. You can do it in a single step, but first, let's run the command below to set the default region (optionally).
 
 ``` bash
 gcloud config set run/region us-central1
