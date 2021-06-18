@@ -4,18 +4,18 @@ title: >
   Accessing Google Firestore on Vercel
 ---
 
-Or in any other cloud service, or language.
+Or on any other cloud service, or language.
 
 > TL;DR: Use GOOGLE_APPLICATION_CREDENTIALS with a valid JSON credential to use any Google APIs anywhere.
 
-[Firebase Hosting](https://firebase.google.com/docs/hosting) is great, but the new [Vercel](https://vercel.com/) is awesome for NextJS apps. On Vercel your code runs on [Lambda@Edge](https://aws.amazon.com/lambda/edge/) and its cached on [CloudFront](https://aws.amazon.com/cloudfront/); in same way, Firebase uses [Fastly](https://www.fastly.com/) another great CDN.
+[Firebase Hosting](https://firebase.google.com/docs/hosting) is great, but the new [Vercel](https://vercel.com/) is awesome for NextJS apps. On Vercel your code runs on [Lambda@Edge](https://aws.amazon.com/lambda/edge/) and it is cached on [CloudFront](https://aws.amazon.com/cloudfront/); in the same way, Firebase uses [Fastly](https://www.fastly.com/), another great CDN.
 
-You can not take all advantage of running a NextJS app on Firebase Hosting, only on Vercel, or deploying manually.
+You can not take full advantage of running a NextJS app on Firebase Hosting, only on Vercel, or by deploying manually.
 
-I like to use [Firestore](https://firebase.google.com/docs/firestore) on some projects and unfortunately its "restricted" to internal network of Google Cloud. Although there is a trick, you can download the service account and export a enviroment variable named `GOOGLE_APPLICATION_CREDENTIALS` with the path of the downloaded credential.
+I like to use [Firestore](https://firebase.google.com/docs/firestore) on some projects, and unfortunately it is "restricted" to the internal network of Google Cloud, although there is a trick; you can download the service account and export an environment variable named `GOOGLE_APPLICATION_CREDENTIALS` with the path of the downloaded credential.
 
 
-Fist, download the JSON file following [this steps](https://firebase.google.com/docs/admin/setup#initialize-sdk).
+First, download the JSON file following [this steps](https://firebase.google.com/docs/admin/setup#initialize-sdk).
 
 Then, convert the credentials JSON file to _base64_:
 
@@ -23,9 +23,9 @@ Then, convert the credentials JSON file to _base64_:
 cat ~/Downloads/project-name-adminsdk-owd8n-43fca28a2a.json | base64
 ```
 
-Now copy the result and create a [environment variable on Vercel](https://vercel.com/docs/environment-variables) named `GOOGLE_CREDENTIALS` and paste the contents.
+Now copy the result and create an [environment variable on Vercel](https://vercel.com/docs/environment-variables) named `GOOGLE_CREDENTIALS` and paste the contents.
 
-On your NextJS project, create an `pages/api/function.js` and add the following code:
+On your NextJS project, create a `pages/api/function.js` and add the following code:
 
 ``` javascript
 import os from "os"
@@ -63,6 +63,6 @@ export default async (req, res) => {
 }
 ```
 
-Done, now it is possible to use Firestore on Vercel or anywhere.
+Done! Now it is possible to use Firestore on Vercel or anywhere.
 
 [Project of example](https://github.com/skhaz/firestore-on-vercel).
