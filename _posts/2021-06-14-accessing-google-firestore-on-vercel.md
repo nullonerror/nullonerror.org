@@ -20,7 +20,7 @@ First, download the JSON file following [this steps](https://firebase.google.com
 Then, convert the credentials JSON file to _base64_:
 
 ``` shell
-cat ~/Downloads/project-name-adminsdk-owd8n-43fca28a2a.json | base64
+base64 < credentials.json
 ```
 
 Now copy the result and create an [environment variable on Vercel](https://vercel.com/docs/environment-variables) named `GOOGLE_CREDENTIALS` and paste the contents.
