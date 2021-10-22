@@ -39,7 +39,7 @@ bot = Bot(token=os.environ["TOKEN"])
 dispatcher = Dispatcher(bot=bot, update_queue=None, workers=0)
 dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
 
-@app.route("/", methods=["POST"])
+@app.post("/")
 def index() -> Response:
     dispatcher.process_update(
         Update.de_json(request.get_json(force=True), bot))
@@ -50,9 +50,9 @@ def index() -> Response:
 `requirements.txt`
 
 ``` text
-flask==1.1.2
-gunicorn==20.0.4
-python-telegram-bot==13.1
+flask==2.0.2
+gunicorn==20.1.0
+python-telegram-bot==13.7
 ```
 
 `Dockerfile`
