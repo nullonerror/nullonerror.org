@@ -96,3 +96,5 @@ curl "https://api.telegram.org/botYOUR-BOT:TOKEN/setWebhook?url=https://your-bot
 You should replace the `YOUR-BOT:TOKEN` by the bot's token and the public URL of your Cloud Run.
 
 This should be enough.
+
+If you want to see the source-code of one of mine [github.com/skhaz/telegram-delduca-bot](https://github.com/skhaz/telegram-delduca-bot).
