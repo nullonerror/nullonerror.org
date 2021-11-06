@@ -36,7 +36,7 @@ def echo(update: Update, context: CallbackContext) -> None:
 
 bot = Bot(token=os.environ["TOKEN"])
 
-dispatcher = Dispatcher(bot=bot, update_queue=None, workers=0)
+dispatcher = Dispatcher(bot=bot, update_queue=None)
 dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
 
 @app.post("/")
