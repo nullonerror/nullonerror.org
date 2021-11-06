@@ -76,24 +76,29 @@ Finally, you need to deploy. You can do it in a single step, but first, let's ru
 gcloud config set run/region us-central1
 ```
 
-Then deploy to Cloud Run:
+Export some variables
+
+```bash
+export PROJECT_ID=your-google-s-project-id
+export TOKEN=your-telegram-bot-token
+```
+
+Then deploy to Cloud Run
 
 ``` bash
-gcloud beta run deploy your-bot-name \
+gcloud beta run deploy bot \
     --source . \
-    --set-env-vars TOKEN=your-telegram-bot-token \
+    --set-env-vars TOKEN=${TOKEN} \
     --platform managed \
     --allow-unauthenticated \
-    --project your-project-name
+    --project ${PROJECT_ID}
 ```
 
-After this, you will receive a public *URL* of your run, and you will need to set the Telegram bot `webHook` using *cURL*
+After this, you will receive a public *URL* of your run, and you will need to set the Telegram bot `webHook` using *cURL* (only need to be done once)
 
 ``` bash
-curl "https://api.telegram.org/botYOUR-BOT:TOKEN/setWebhook?url=https://your-bot-name-uuid-uc.a.run.app"
+curl "https://api.telegram.org/bot${TOKEN}/setWebhook?url=$(gcloud run services describe bot --format 'value(status.url)' --project ${PROJECT_ID})"
 ```
-
-You should replace the `YOUR-BOT:TOKEN` by the bot's token and the public URL of your Cloud Run.
 
 This should be enough.
 
