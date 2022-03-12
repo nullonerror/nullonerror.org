@@ -29,6 +29,10 @@ I call "frontend of the backend" because it is just an interface to the world.
 On the other side, one or more workers pull the data from the queue and increment the unique identifier used as a key on Redis.
 
 ```python
+def on_queue_declared(frame):
+    channel.basic_consume(QUEUE, handle_delivery)
+
+
 def handle_delivery(channel, method, header, body):
     redis.incr(body.decode("utf-8"))
 ```
