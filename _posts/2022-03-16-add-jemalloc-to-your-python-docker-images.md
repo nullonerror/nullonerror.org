@@ -9,7 +9,7 @@ Based on this [blog post](https://zapier.com/engineering/celery-python-jemalloc/
 
 In your Dockerfile, before your `CMD`, add this `RUN` command and the `LD_PRELOAD`.
 
-The LD_PRELOAD is important because it instructs the _Linux Kernel_ to use another _malloc_, from the [jemalloc](http://jemalloc.net/).
+The LD_PRELOAD is important because it allows replacing all calls of _malloc_ and _free_ by [jemalloc](http://jemalloc.net/) ones.
 
 > jemalloc is a general purpose malloc(3) implementation that emphasizes fragmentation avoidance and scalable concurrency support. jemalloc first came into use as the FreeBSD libc allocator in 2005, and since then it has found its way into numerous applications that rely on its predictable behavior.
 
