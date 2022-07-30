@@ -6,7 +6,7 @@ title: >
 
 ### Intro
 
-I am starting to study and work with Go; I have a good background in Python for the web. I am enjoying golang, and when I am learning about something new, I like to put my hands on it.
+I have started to study and work with Go; I have a good background in Python for the web. I am enjoying golang, and when I am learning about something new, I like to put my hands on it.
 
 In the last few days, in my free time, I started to create a REST API applying the best practices that I have learned in the last years
 
