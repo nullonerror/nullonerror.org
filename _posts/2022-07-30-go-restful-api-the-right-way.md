@@ -1,7 +1,7 @@
 ---
 layout: post
 title: >
-  Go RESTful APIs, The Right Way
+  Go RESTful APIs, The Practical Way
 ---
 
 ### Intro
@@ -310,7 +310,7 @@ func HandleError(err error, ctx *gin.Context) {
 }
 ```
 
-For example, if the `after` parameter is not in the RFC 3339 format. It will return a error
+For example, if the `after` parameter is not in the RFC 3339 format. It will return an error
 
 ```shell
 $ http localhost:8000/workspaces?after=0
