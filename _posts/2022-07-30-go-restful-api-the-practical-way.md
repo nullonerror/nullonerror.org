@@ -19,7 +19,7 @@ In the last few days, in my free time, I started to create a REST API applying t
 * [testify](https://github.com/stretchr/testify) for testing
 * [go2hal](https://github.com/pmoule/go2hal) for HAL
 * [problem](https://github.com/mschneider82/problem) for problem JSON
-* [validator](https://github.com/go-playground/validator/v10) for validation
+* [validator](https://github.com/go-playground/validator) for validation
 * [sqlmock](https://github.com/DATA-DOG/go-sqlmock) for SQL mocking
 
 ### Model
