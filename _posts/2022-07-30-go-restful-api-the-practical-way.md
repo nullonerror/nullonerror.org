@@ -51,11 +51,11 @@ Let's first define an interface:
 ```go
 type Repository interface {
   Configure(*gorm.DB)
-  List(after time.Time, limit int) (any, error)
-  Get(id any) (any, error)
-  Create(entity any) (any, error)
-  Update(id any, entity any) (bool, error)
-  Delete(id any) (bool, error)
+  List(time.Time,int) (any, error)
+  Get(any) (any, error)
+  Create(any) (any, error)
+  Update(any, any) (bool, error)
+  Delete(any) (bool, error)
 }
 ```
 
