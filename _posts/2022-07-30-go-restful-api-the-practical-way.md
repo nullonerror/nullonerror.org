@@ -51,7 +51,7 @@ Let's first define an interface:
 ```go
 type Repository interface {
   Configure(*gorm.DB)
-  List(time.Time,int) (any, error)
+  List(time.Time, int) (any, error)
   Get(any) (any, error)
   Create(any) (any, error)
   Update(any, any) (bool, error)
