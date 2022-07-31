@@ -62,7 +62,7 @@ type Repository interface {
 Then their implementation using gorm as ORM:
 
 ```go
-func (repository *WorkspaceRepository) List(after time.Time, limit int) (any, error) {
+func (r *WorkspaceRepository) List(after time.Time, limit int) (any, error) {
   var wc model.WorkspaceCollection
   order := "created_at"
   err := r.db.Limit(limit).Order(order).Where(fmt.Sprintf("%v > ?", order), after).Limit(limit).Find(&wc).Error
@@ -70,7 +70,7 @@ func (repository *WorkspaceRepository) List(after time.Time, limit int) (any, er
   return wc, err
 }
 
-func (repository *WorkspaceRepository) Get(id any) (any, error) {
+func (r *WorkspaceRepository) Get(id any) (any, error) {
   var w *model.Workspace
 
   err := r.db.Where("id = ?", id).First(&w).Error
@@ -78,7 +78,7 @@ func (repository *WorkspaceRepository) Get(id any) (any, error) {
   return w, err
 }
 
-func (repository *WorkspaceRepository) Create(entity any) (any, error) {
+func (r *WorkspaceRepository) Create(entity any) (any, error) {
   w := entity.(*model.Workspace)
 
   err := r.db.Create(w).Error
@@ -86,7 +86,7 @@ func (repository *WorkspaceRepository) Create(entity any) (any, error) {
   return w, err
 }
 
-func (repository *WorkspaceRepository) Update(id any, entity any) (bool, error) {
+func (r *WorkspaceRepository) Update(id any, entity any) (bool, error) {
   w := entity.(*model.Workspace)
 
   if err := r.db.Model(w).Where("id = ?", id).Updates(w).Error; err != nil {
@@ -96,7 +96,7 @@ func (repository *WorkspaceRepository) Update(id any, entity any) (bool, error) 
   return true, nil
 }
 
-func (repository *WorkspaceRepository) Delete(id any) (bool, error) {
+func (r *WorkspaceRepository) Delete(id any) (bool, error) {
   if err := r.db.Delete(&model.Workspace{}, "id = ?", id).Error; err != nil {
     return false, err
   }
@@ -110,8 +110,8 @@ func (repository *WorkspaceRepository) Delete(id any) (bool, error) {
 For handling HTTP routes, we need to create some functions which are called controllers, in this example, it is using [Gin](https://github.com/gin-gonic/gin).
 
 ```go
-func (server *Server) registerRoutes() {
-  var router = server.router
+func (s *Server) registerRoutes() {
+  var router = s.router
 
   workspaces := router.Group("/workspaces")
   {
