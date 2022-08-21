@@ -104,7 +104,7 @@ const specs = yaml.loadAll(
   await fs.readFile(path.resolve("manifest.yaml"), "utf-8")
 ) as KubernetesObject[];
 
-const validSpecs = specs.filter((s) => s && s.kind && s.metadata);
+const validSpecs = specs.filter((spec) => spec && spec.kind && spec.metadata);
 
 for (const spec of validSpecs) {
   spec.metadata = spec.metadata || {}
