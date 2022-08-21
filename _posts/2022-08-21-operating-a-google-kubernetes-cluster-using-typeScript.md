@@ -98,10 +98,7 @@ The code below does the same of `kubectl apply -f manifest.yaml`:
 import { promises as fs } from "fs";
 import * as yaml from "js-yaml";
 import * as path from "path";
-import type {
-  KubernetesObject,
-  KubernetesObjectApi,
-} from "@kubernetes/client-node";
+import type { KubernetesObject } from "@kubernetes/client-node";
 
 const specs = yaml.loadAll(
   await fs.readFile(path.resolve("manifest.yaml"), "utf-8")
