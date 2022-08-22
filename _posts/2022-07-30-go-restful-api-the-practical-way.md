@@ -12,15 +12,15 @@ In the last few days, in my free time, I started to create a REST API applying t
 
 ### Libraries
 
-* [Gin](https://github.com/gin-gonic/gin) for HTTP
-* [gorm](https://github.com/go-gorm/gorm) for ORM
-* [viper](https://github.com/spf13/viper) for configuration
-* [zap](https://github.com/uber-go/zap) for logging
-* [testify](https://github.com/stretchr/testify) for testing
-* [go2hal](https://github.com/pmoule/go2hal) for HAL
-* [problem](https://github.com/mschneider82/problem) for problem JSON
-* [validator](https://github.com/go-playground/validator) for validation
-* [sqlmock](https://github.com/DATA-DOG/go-sqlmock) for SQL mocking
+- [Gin](https://github.com/gin-gonic/gin) for HTTP
+- [gorm](https://github.com/go-gorm/gorm) for ORM
+- [viper](https://github.com/spf13/viper) for configuration
+- [zap](https://github.com/uber-go/zap) for logging
+- [testify](https://github.com/stretchr/testify) for testing
+- [go2hal](https://github.com/pmoule/go2hal) for HAL
+- [problem](https://github.com/mschneider82/problem) for problem JSON
+- [validator](https://github.com/go-playground/validator) for validation
+- [sqlmock](https://github.com/DATA-DOG/go-sqlmock) for SQL mocking
 
 ### Model
 
@@ -36,11 +36,11 @@ type Workspace struct {
 }
 ```
 
-* _ID_ is used as the primary key, using a random UUID instead of auto-increment integers.
-* _Name_ is a property of the model, it could be anything under any name in finite quantities.
-* _CreatedAt_ when the model was created handled by gorm automatically.
-* _UpdatedAt_ when the model was updated, handled by gorm automatically.
-* _DeletedAt_ this is how gorm handles soft-delete. It needs to be the type of gorm.DeletedAt.
+- _ID_ is used as the primary key, using a random UUID instead of auto-increment integers.
+- _Name_ is a property of the model, it could be anything under any name in finite quantities.
+- _CreatedAt_ when the model was created handled by gorm automatically.
+- _UpdatedAt_ when the model was updated, handled by gorm automatically.
+- _DeletedAt_ this is how gorm handles soft-delete. It needs to be the type of gorm.DeletedAt.
 
 ### Repository
 
@@ -244,11 +244,11 @@ func DeleteWorkspace(ctx *gin.Context) {
 
 ### HAL Links
 
->APIs are forever. Once an API is integrated into a production application, it is difficult to make significant changes that could potentially break those existing integrations
+> APIs are forever. Once an API is integrated into a production application, it is difficult to make significant changes that could potentially break those existing integrations
 
 [Principles of Web API Design: Delivering Value with APIs and Microservices](https://www.amazon.com.br/Principles-Web-Design-James-Higginbotham/dp/0137355637)
 
-In practice, it is hard to break an API contract because the API consumer will be mad at you. A new version of an API is not practical; nobody will move to another API. 
+In practice, it is hard to break an API contract because the API consumer will be mad at you. A new version of an API is not practical; nobody will move to another API.
 
 Thinking about that, [HAL Links](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06), formally known as JSON Hypertext Application Language, try to solve API migration in a way without pain. Instead of using a hardcoded location to a resource, the API should return the representation of the resource in the _self_ field.
 
@@ -327,6 +327,5 @@ Date: Sat, 30 Jul 2022 18:23:54 GMT
 ```
 
 Notice the `Content-Type`, it is the _mimetype_ of [Problem Details for HTTP APIs](https://datatracker.ietf.org/doc/html/rfc7807) with a detailed error in the body.
-
 
 [Full example](https://github.com/skhaz/go-restful-api)

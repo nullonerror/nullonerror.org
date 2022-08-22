@@ -24,9 +24,9 @@ Logo, posso usar deste mesmo truque de alterar píxels para esconder uma mensage
 
 Mas para isso é preciso separar cada bit da minha mensagem e alterar apenas um ou dois bits de cada componente de cor, parece pouco espaço, mas se fizermos as contas, uma imagem de 800x600 que é considerada hoje de baixa resolução pode comportar
 
-> 800 width * 600 height = 480000 píxeis  
-> 480000 píxels * 4 component = 1920000 bits  
-> 1920000 bits / 8 = 240000 bytes  
+> 800 width _ 600 height = 480000 píxeis  
+> 480000 píxels _ 4 component = 1920000 bits  
+> 1920000 bits / 8 = 240000 bytes
 
 Ou seja, podemos ter uma mensagem de até ~30KB numa imagem de 800x600 :)
 

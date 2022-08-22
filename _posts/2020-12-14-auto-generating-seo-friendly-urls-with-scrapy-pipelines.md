@@ -6,9 +6,9 @@ title: >
 
 I was using Scrapy to crawl some websites and mirror their content into a new one and at the same time, generate beautiful and unique URLs based on the title, but the title can appear repeated! So I added part of the original URL in [base36](https://en.wikipedia.org/wiki/Base36) as uniqueness guarantees.
 
-In the *URL* I wanted the title without special symbols, only ASCII and at the end a unique and short inditifier, and part of the result of the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) of the URL in *base36*.
+In the _URL_ I wanted the title without special symbols, only ASCII and at the end a unique and short inditifier, and part of the result of the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) of the URL in _base36_.
 
-``` python
+```python
 class PreparePipeline():
   def process_item(self, item, spider):
     title = item.get("title")
@@ -40,4 +40,4 @@ class PreparePipeline():
     return item
 ```
 
-For example, with the *URL* `https://en.wikipedia.org/wiki/Déjà_vu` and *title* `Déjà vu - Wikipedia` will result in: `deja-vu-wikipedia-1q9i86k`. Which is perfect for my use case.
+For example, with the _URL_ `https://en.wikipedia.org/wiki/Déjà_vu` and _title_ `Déjà vu - Wikipedia` will result in: `deja-vu-wikipedia-1q9i86k`. Which is perfect for my use case.

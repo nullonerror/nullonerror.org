@@ -9,6 +9,7 @@ title: >
 Dia desses estava lendo [SQLite As An Application File Format](https://www.sqlite.org/appfileformat.html) o que me fez lembrar de quando eu lia muito a respeito de desenvolvimento de jogos, até cheguei a desenvolver um framework chamado [Wintermoon](http://wintermoon.sourceforge.net/), no meu framework eu usei o [PhysicsFS](https://icculus.org/physfs/) foi quando descobri o [MPQ](http://www.zezula.net/en/mpq/main.html) e fiquei encantado.
 
 ## Mo'PaQ
+
 O MPQ é (ou era) amplamente utilizado em praticamente todos os jogos da Blizzard, desde o Diablo (1997) até o StarCraft 2 (2010). Inclusive o StarCraft 2 recebe atualizações até hoje, e quase que mensalmente desde seu lançamento! Digo isto para dar um contexto de onde quero chegar.
 
 O MPQ leva o nome de seu criador, e surgiu devido há alguns requerimentos da época, como segurança, acesso rápido, compressão, expansibilidade e multi-linguagem.
@@ -157,6 +158,7 @@ SDL_FreeSurface(surface);
 ```
 
 ## Benchmarks, é disso que o povo gosta!
+
 Usando a função [SDL_GetPerformanceFrequency](https://wiki.libsdl.org/SDL_GetPerformanceFrequency) para mensurar o trecho responsável apenas por carregar a textura obtive os seguintes resultados:
 
 ```bash
@@ -167,6 +169,7 @@ $ ls -lh texture001.tga | awk '{print $5}'
 ```
 
 ##### PhysicsFS (gzip compressed)
+
 ```bash
 for i in {1..10}; do ./physfs; done
 42.060247
@@ -179,6 +182,7 @@ for i in {1..10}; do ./physfs; done
 ```
 
 ##### SQLite
+
 ```bash
 for i in {1..10}; do ./sqlite; done
 27.433850
@@ -215,7 +219,7 @@ O MPQ tem um mecanismo de patches, como na época a maioria dos jogos eram distr
 
 A ideia por trás de usar o SQLite no lugar do PhysicsFS é de aproveitar algumas características de um banco de dados, que é de… criar, atualizar, modificar e deletar de forma atômica!
 
-> O arquivo de update do jogo poderia ser um conjunto de instruções SQL.  
+> O arquivo de update do jogo poderia ser um conjunto de instruções SQL.
 
 Vamos desconsiderar o binário do jogo por hora, e vamos supor que uma nova textura foi adicionada no banco de dados do desenvolvedor, e por algum motivo desconhecido ele é preguiçoso e usou a ferramenta `sqldiff` para gerar o patch e não [schema migration](https://en.wikipedia.org/wiki/Schema_migration).
 
@@ -223,7 +227,7 @@ Vamos desconsiderar o binário do jogo por hora, e vamos supor que uma nova text
 sqlite3 assets.db "INSERT INTO assets(key, blob) VALUES ('texture002', readfile('texture002.jpg'));"
 ```
 
-> Estou usando texturas como exemplo pois geralmente é o tipo de arquivo que ocupa mais espaço em disco dos jogos. O exemplo vale para qualquer tipo de arquivo… seja textos, scripts, shaders, etc.  
+> Estou usando texturas como exemplo pois geralmente é o tipo de arquivo que ocupa mais espaço em disco dos jogos. O exemplo vale para qualquer tipo de arquivo… seja textos, scripts, shaders, etc.
 
 ```
 $ sqldiff old.db assets.db > patch01.sql
@@ -237,7 +241,7 @@ $ ls -lh patch01.tgz | awk '{print $5}'
 363K
 ```
 
-> Como se trata de um arquivo `.jpeg` representado em hexadecimal dentro de um `.sql` os ganhos com compressão são pequenos.  
+> Como se trata de um arquivo `.jpeg` representado em hexadecimal dentro de um `.sql` os ganhos com compressão são pequenos.
 
 Agora basta a nossa ferramenta responsável por atualizar o jogo aplicar os patches na mesma sequencia que foram gerados.
 

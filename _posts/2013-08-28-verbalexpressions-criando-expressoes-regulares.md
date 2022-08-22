@@ -12,7 +12,7 @@ Construir expressões regulares nem sempre é uma tarefa simples, exceto para aq
 
 Usando [fluent inteterface](http://en.wikipedia.org/wiki/Fluent_interface) esta árdua tarefa se resume numa versão "poética", como veremos a seguir:
 
-``` cpp
+```cpp
 auto expression = QVerbalExpressions()
   .searchOneLine()
   .startOfLine()

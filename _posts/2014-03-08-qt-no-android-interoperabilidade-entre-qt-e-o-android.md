@@ -24,13 +24,13 @@ Depois de uma breve pesquisa no diretório de instalação do Qt, encontrei o se
 
 `$QTDIR/5.*.*/android_(armv5|android_armv7|android_x86)/src/android/java`
 
-* $QTDIR _O diretório raiz_
-* 5.\*.\* _A versão_
-* android_(armv5 \| android_armv7 \| android_x86) _A arquitetura_
+- $QTDIR _O diretório raiz_
+- 5.\*.\* _A versão_
+- android*(armv5 \| android_armv7 \| android_x86) \_A arquitetura*
 
 É onde tem exatamente o que precisava, o AndroidManifest.xml, version.xml, os diretórios src e res. E o que temos dentro de `src/org/qtproject/qt5/android/bindings`? Temos QtActivity QtApplication, que herdam Activity e Application do Android SDK respectivamente, e como podemos ver, no AndroidManifest.xml
 
-``` xml
+```xml
 <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="@string/app_name">
 
   <activity android:configChanges="orientation|uiMode|screenLayout|screenSize..."
@@ -52,7 +52,7 @@ Para poder usar as classes QAndroidJniObject e QAndroidJniEnvironment é necess�
 
 Precisamos de algumas customizações no AndroidManifest.xml; uma delas é para adicionar a FullscreenActivity do RevMob:
 
-``` xml
+```xml
 <application ...>
   <activity android:name="com.revmob.ads.fullscreen.FullscreenActivity"
             android:theme="@android:style/Theme.Translucent"
@@ -65,7 +65,7 @@ Precisamos de algumas customizações no AndroidManifest.xml; uma delas é para 
 
 Lembram que era preciso a instância de uma activity? Para isto criei um wrapper, No diretório _android-sources_, criei a estrutura de diretórios _src/com/revmob_ e dentro um arquivo com o nome _RevMobActivity.java_, com o seguinte conteúdo:
 
-``` java
+```java
 package com.revmob;
 
 import org.qtproject.qt5.android.bindings.QtActivity;
@@ -107,7 +107,7 @@ Finalmente poderemos voltar à programação de verdade.
 
 Para começar a utilizar precisamos iniciar uma sessão, o que pode ser feito na inicializacão do app, da seguinte maneira:
 
-``` cpp
+```cpp
 QString appId = "";
 
 QAndroidJniObject param = QAndroidJniObject::fromString(appId);

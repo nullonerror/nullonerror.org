@@ -24,7 +24,7 @@ QGraphicsProxyWidget *proxy = scene.addWidget(&video);
 > Note that widgets with the Qt::WA_PaintOnScreen widget attribute set and widgets that wrap an external application or controller cannot be embedded. Examples are QGLWidget and QAxWidget.
 
 Outra decepção... resumidamente, como meu widget passava o ID da janela (no caso do widget mesmo) para a libVLC, ele estava
- sendo pintando por uma outra aplicação, logo, nunca funcionaria.
+sendo pintando por uma outra aplicação, logo, nunca funcionaria.
 
 Minha segunda tentativa, diria que foi um pouco mais hardcore, olhando na wiki do VLC, encontrei um exemplo de como usar com o SDL, como eu já conheço bem essa biblioteca, resolvi baixar o exemplo, mas antes disso dei uma boa lida no código fonte, porque eu sabia que era possível passar o ID da janela do SDL, minha analise foi bem otimista, além das operações de blit, foi usado callbacks "libvlc_video_set_callbacks" para que o VLC pudesse escrever em uma área da memória, previamente alocado por SDL_CreateRGBSurface, beleza, vamos testar então. A performance não foi tao boa quanto usando a solução anterior, mas mesmo assim era muito boa.
 
@@ -56,5 +56,5 @@ O resultado pode ser visto no vídeo a seguir:
 
 Referências:
 
-* [LibVLC_SampleCode_SDL](http://wiki.videolan.org/LibVLC_SampleCode_SDL)
-* [Videos Get Pimped](http://labs.qt.nokia.com/2008/11/28/videos-get-pimped/)
+- [LibVLC_SampleCode_SDL](http://wiki.videolan.org/LibVLC_SampleCode_SDL)
+- [Videos Get Pimped](http://labs.qt.nokia.com/2008/11/28/videos-get-pimped/)

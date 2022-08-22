@@ -17,8 +17,8 @@ CMD exec gunicorn $OPTIONS --bind :$PORT --workers 1 --threads 8 --timeout 0 mai
 
 And on `docker-compose.yaml` will be need two things:
 
-* Pass `--reload` as a Docker argument to the container, using args.
-* Mount the local directory inside the container, using the volumes.
+- Pass `--reload` as a Docker argument to the container, using args.
+- Mount the local directory inside the container, using the volumes.
 
 ```yaml
 version: "3"

@@ -5,6 +5,7 @@ title: >
 ---
 
 ### Why?
+
 Google Cloud Storage is cheaper, and you pay only for what you use than [Google One](https://one.google.com/). Also, you can erase any photo, and you still have a copy of that.
 
 ### Installation
@@ -13,7 +14,7 @@ Create a Compute Engine (a VM).
 
 If you choose Ubuntu, first of all, remove `snap`
 
-``` bash
+```bash
 sudo apt autoremove --purge snapd
 sudo rm -rf /var/cache/snapd/
 rm -rf ~/snap
@@ -21,7 +22,7 @@ rm -rf ~/snap
 
 Install `gcsfuse` or follow [the official instructions](https://github.com/GoogleCloudPlatform/gcsfuse/blob/master/docs/installing.md).
 
-``` bash
+```bash
 export GCSFUSE_REPO=gcsfuse-`lsb_release -c -s`
 echo "deb http://packages.cloud.google.com/apt $GCSFUSE_REPO main" | sudo tee /etc/apt/sources.list.d/gcsfuse.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -32,20 +33,20 @@ sudo apt-get install gcsfuse
 
 On Google Cloud console create a bucket of the type `Nearline`, in my case the name of the bucket is `tank1`, then back to your VM and create a dir with the same name of the bucket.
 
-``` bash
+```bash
 mkdir name-of-your-bucket
 ```
 
 Now install `gphotos-sync`.
 
-``` bash
+```bash
 sudo apt install -y python3-pip
 pip3 install gphotos-sync
 ```
 
 I created a small Python script to deal with multiple Google accounts. I'll explain later how it works.
 
-``` python
+```python
 cat <<EOF > /home/ubuntu/synchronize.py
 #!/usr/bin/env python3
 
@@ -80,13 +81,13 @@ response.raise_for_status()
 EOF
 ```
 
-Give *execute* permission.
+Give _execute_ permission.
 
 ```
 chmod u+x synchronize.py
 ```
 
-Now let's create some *systemd* scripts.
+Now let's create some _systemd_ scripts.
 
 ```
 sudo su
@@ -94,8 +95,8 @@ sudo su
 
 Let's create a service to gcsfuse, responsible to mount the bucket locally using the FUSE.
 
-``` bash
-cat <<EOF >/etc/systemd/system/gcsfuse.service 
+```bash
+cat <<EOF >/etc/systemd/system/gcsfuse.service
 # Script stolen from https://gist.github.com/craigafinch/292f98618f8eadc33e9633e6e3b54c05
 [Unit]
 Description=Google Cloud Storage FUSE mounter
@@ -116,13 +117,13 @@ EOF
 
 Enable and start the service:
 
-``` bash
+```bash
 systemctl enable gcsfuse.service
 systemctl start gcsfuse.service
 ```
 
-``` bash
-cat <<EOF >/etc/systemd/system/gphotos-sync.service 
+```bash
+cat <<EOF >/etc/systemd/system/gphotos-sync.service
 [Unit]
 Description=Run gphotos-sync for each account
 
@@ -134,14 +135,14 @@ EOF
 
 And enable the service.
 
-``` bash
+```bash
 systemctl enable gphotos-sync.service
 ```
 
-Now let's create a *timer* to run 1 minute after the boot the `gphotos-sync.service` with `gcsfuse.service` as dependency.
+Now let's create a _timer_ to run 1 minute after the boot the `gphotos-sync.service` with `gcsfuse.service` as dependency.
 
-``` bash
-cat <<EOF >/etc/systemd/system/gphotos-sync.timer 
+```bash
+cat <<EOF >/etc/systemd/system/gphotos-sync.timer
 [Unit]
 Description=Run gphotos sync service weekly
 Requires=gcsfuse.service
@@ -155,7 +156,7 @@ WantedBy=timers.target
 EOF
 ```
 
-``` bash
+```bash
 systemctl enable gphotos-sync.timer
 systemctl start gphotos-sync.timer
 ```
@@ -164,17 +165,17 @@ systemctl start gphotos-sync.timer
 
 Now follow [https://docs.google.com/document/d/1ck1679H8ifmZ_4eVbDeD_-jezIcZ-j6MlaNaeQiz7y0/edit](this instructions) to get a `client_secret.json` to use with `gphotos-sync`.
 
-``` bash
+```bash
 mkdir -p /home/ubuntu/.config/gphotos-sync/
 # Copy the contents of the json to the file bellow
-vim /home/ubuntu/.config/gphotos-sync/client_secret.json 
+vim /home/ubuntu/.config/gphotos-sync/client_secret.json
 ```
 
 ### Testing
 
-Due to an issue with `gcsfuse`, I was unable to create the backup dir directly on the bucket. The workaround is to create a *temp* directory and start the `gphotos-sync` manually first.
+Due to an issue with `gcsfuse`, I was unable to create the backup dir directly on the bucket. The workaround is to create a _temp_ directory and start the `gphotos-sync` manually first.
 
-``` bash
+```bash
 mkdir -p ~/temp/username/0
 cd ~/temp
 gphotos-sync --ntfs --skip-albums --photos-path . username/0
@@ -184,7 +185,7 @@ cp ~/temp/username/ ~/tank1/photos/username
 
 Verify if it is working.
 
-``` bash
+```bash
 ./synchronize.py
 ```
 
@@ -194,35 +195,32 @@ After executing the command above, the script should start the backup. You can w
 
 The content below is based on and simplified version of [Scheduling compute instances with Cloud Scheduler by Google](https://cloud.google.com/scheduler/docs/start-and-stop-compute-engine-instances-on-a-schedule#gcloud_3)
 
-Back to your VM and add the label `runtime` with the value `weekly`, this is needed by the *function* below to know which instances should be started or shutdown.
+Back to your VM and add the label `runtime` with the value `weekly`, this is needed by the _function_ below to know which instances should be started or shutdown.
 
 Create a new directory, in my case, I will call `functions` and add two files:
 
 `index.js`
 
-``` javascript
-const Compute = require('@google-cloud/compute');
+```javascript
+const Compute = require("@google-cloud/compute");
 const compute = new Compute();
 
 exports.startInstancePubSub = async (event, context, callback) => {
   try {
-    const payload = JSON.parse(Buffer.from(event.data, 'base64').toString());
-    const options = {filter: `labels.${payload.label}`};
+    const payload = JSON.parse(Buffer.from(event.data, "base64").toString());
+    const options = { filter: `labels.${payload.label}` };
     const [vms] = await compute.getVMs(options);
     await Promise.all(
-      vms.map(async instance => {
+      vms.map(async (instance) => {
         if (payload.zone === instance.zone.id) {
-          const [operation] = await compute
-            .zone(payload.zone)
-            .vm(instance.name)
-            .start();
+          const [operation] = await compute.zone(payload.zone).vm(instance.name).start();
 
           return operation.promise();
         }
       })
     );
 
-    const message = 'Successfully started instance(s)';
+    const message = "Successfully started instance(s)";
     console.log(message);
     callback(null, message);
   } catch (err) {
@@ -233,16 +231,13 @@ exports.startInstancePubSub = async (event, context, callback) => {
 
 exports.stopInstancePubSub = async (event, context, callback) => {
   try {
-    const payload = JSON.parse(Buffer.from(event.data, 'base64').toString());
-    const options = {filter: `labels.${payload.label}`};
+    const payload = JSON.parse(Buffer.from(event.data, "base64").toString());
+    const options = { filter: `labels.${payload.label}` };
     const [vms] = await compute.getVMs(options);
     await Promise.all(
-      vms.map(async instance => {
+      vms.map(async (instance) => {
         if (payload.zone === instance.zone.id) {
-          const [operation] = await compute
-            .zone(payload.zone)
-            .vm(instance.name)
-            .stop();
+          const [operation] = await compute.zone(payload.zone).vm(instance.name).stop();
 
           return operation.promise();
         } else {
@@ -251,7 +246,7 @@ exports.stopInstancePubSub = async (event, context, callback) => {
       })
     );
 
-    const message = 'Successfully stopped instance(s)';
+    const message = "Successfully stopped instance(s)";
     console.log(message);
     callback(null, message);
   } catch (err) {
@@ -265,7 +260,7 @@ And
 
 `package.json`
 
-``` json
+```json
 {
   "main": "index.js",
   "private": true,
@@ -275,37 +270,37 @@ And
 }
 ```
 
-Create a *PubSub* topic to start the instance.
+Create a _PubSub_ topic to start the instance.
 
-``` bash
+```bash
 gcloud pubsub topics create start-instance-event
 ```
 
 Now deploy the `startInstancePubSub` function
 
-``` bash
+```bash
 gcloud functions deploy startInstancePubSub \
     --trigger-topic start-instance-event \
     --runtime nodejs12 \
     --allow-unauthenticated
 ```
 
-And another *PubSub* topic to stop the instance.
+And another _PubSub_ topic to stop the instance.
 
-``` bash
+```bash
 gcloud pubsub topics create stop-instance-event
 ```
 
 And the `stopInstancePubSub` function
 
-``` bash
+```bash
 gcloud functions deploy stopInstancePubSub \
     --trigger-topic stop-instance-event \
     --runtime nodejs12 \
     --allow-unauthenticated
 ```
 
-And finally, let's create two *Cloud Scheduler* to publish on the topics on *Sunday* and *Monday* at midnight.
+And finally, let's create two _Cloud Scheduler_ to publish on the topics on _Sunday_ and _Monday_ at midnight.
 
 ```
 gcloud beta scheduler jobs create pubsub startup-weekly-instances \
@@ -323,4 +318,4 @@ gcloud beta scheduler jobs create pubsub shutdown-weekly-instances \
     --time-zone 'America/Sao_Paulo'
 ```
 
-After this setup, your VM will start every *Sunday*, backup all your photos of all accounts and shutdown on *Monday*.
+After this setup, your VM will start every _Sunday_, backup all your photos of all accounts and shutdown on _Monday_.

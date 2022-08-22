@@ -14,12 +14,11 @@ You can not take full advantage of running a NextJS app on Firebase Hosting, onl
 
 I like to use [Firestore](https://firebase.google.com/docs/firestore) on some projects, and unfortunately it is "restricted" to the internal network of Google Cloud, although there is a trick; you can download the service account and export an environment variable named `GOOGLE_APPLICATION_CREDENTIALS` with the path of the downloaded credential.
 
-
 First, download the JSON file following [this steps](https://firebase.google.com/docs/admin/setup#initialize-sdk).
 
 Then, convert the credentials JSON file to _base64_:
 
-``` shell
+```shell
 base64 < credentials.json
 ```
 
@@ -27,7 +26,7 @@ Now copy the result and create an [environment variable on Vercel](https://verce
 
 On your NextJS project, create a `pages/api/function.js` and add the following code:
 
-``` javascript
+```javascript
 import os from "os"
 import { promises as fsp } from "fs"
 import path from "path"

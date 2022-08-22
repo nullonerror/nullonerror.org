@@ -114,9 +114,9 @@ O _script_ escreve na saída `stdout` o resultado de cada interação, o formato
 PTTTTTTTTTR
 ```
 
-* `P` - Representa o jogador, sendo **1** ou **2**.
-* `T` - Indica o estado de cada posição do tabuleiro, **0** caso esteja livre; **1** ou **2*** caso esteja preenchido.
-* `R` - Indica o resultado,  **0** caso ainda não haja uma vitória, **3** caso seja um empate ou **1** ou **2** caso um dos jogadores tenha vencido.
+- `P` - Representa o jogador, sendo **1** ou **2**.
+- `T` - Indica o estado de cada posição do tabuleiro, **0** caso esteja livre; **1** ou **2\*** caso esteja preenchido.
+- `R` - Indica o resultado, **0** caso ainda não haja uma vitória, **3** caso seja um empate ou **1** ou **2** caso um dos jogadores tenha vencido.
 
 ### A partida
 
@@ -134,7 +134,7 @@ $ python generator.py
 11221201121
 ```
 
-No caso acima, o jogador  **1** iniciou a partida e acabou sendo o vitorioso. Vejamos outra partida:
+No caso acima, o jogador **1** iniciou a partida e acabou sendo o vitorioso. Vejamos outra partida:
 
 ```shell
 $ python generator.py

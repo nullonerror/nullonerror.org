@@ -16,7 +16,7 @@ Já no cliente, que é responsável por tocar os vídeos...: “vou escrever em 
 
 ### Painel administrativo
 
-As pessoas,  e desse ramo principalmente, estão acostumadas a usar planilhas para as mais variadas tarefas, então por que não usar uma planilha como _“admin”_?
+As pessoas, e desse ramo principalmente, estão acostumadas a usar planilhas para as mais variadas tarefas, então por que não usar uma planilha como _“admin”_?
 
 ![Google Sheets](/public/2019-01-10-empreendendo-sem-dinheiro/gsheets.jpg){: .center }
 
@@ -28,7 +28,7 @@ Quê?
 
 É isso mesmo, no nosso protótipo vamos usar o YouTube, pois não tem nenhum custo e já faz a conversão e distribuição do vídeo nos mais variados formatos e tamanhos.
 
-> Atenção: De acordo com [os termos de uso](https://www.youtube.com/static?template=terms) do YouTube não é permitido reproduzir o conteúdo da plataforma fora do player do youtube, o que estou demonstrando é apenas para fins educacionais.  
+> Atenção: De acordo com [os termos de uso](https://www.youtube.com/static?template=terms) do YouTube não é permitido reproduzir o conteúdo da plataforma fora do player do youtube, o que estou demonstrando é apenas para fins educacionais.
 
 ### [O nosso work é playá](https://www.youtube.com/watch?v=EJruqzsvza4)
 
@@ -47,9 +47,12 @@ function doGet(request) {
     var range = sheet.getDataRange();
     var values = range.getValues();
     var headers = values.shift();
-    var playlist = values.map(function (el) { return { url: el[0] }; });
-    return ContentService.createTextOutput(JSON.stringify({ playlist: playlist }))
-      .setMimeType(ContentService.MimeType.JSON);
+    var playlist = values.map(function (el) {
+      return { url: el[0] };
+    });
+    return ContentService.createTextOutput(JSON.stringify({ playlist: playlist })).setMimeType(
+      ContentService.MimeType.JSON
+    );
   }
 }
 ```
@@ -68,7 +71,7 @@ $ curl -sL "https://script.google.com/macros/s/${...}/exec?sheet=Sheet1" | jq
 }
 ```
 
-Com uma simples entrada no `cron`  é possível criar um agendamento para baixar a playlist de tempos em tempos:
+Com uma simples entrada no `cron` é possível criar um agendamento para baixar a playlist de tempos em tempos:
 
 ```shell
 */30 * * * * user curl -sL "https://script.google.com/macros/s/${...}/exec?sheet=Sheet1" > playlists/1.json
@@ -83,7 +86,7 @@ download() {
 }
 ```
 
-> Alguns parâmetros do `youtube-dl` foram omitidos pois foram movidos para o arquivo de configuração global.  
+> Alguns parâmetros do `youtube-dl` foram omitidos pois foram movidos para o arquivo de configuração global.
 
 Com o [entr](http://entrproject.org/) é possível monitorar se algum arquivo foi modificado ou mesmo adicionado novos arquivos no diretório; se isso acontecer, a função `download` será chamada:
 

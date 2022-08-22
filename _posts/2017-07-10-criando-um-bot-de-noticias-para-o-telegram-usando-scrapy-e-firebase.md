@@ -79,41 +79,37 @@ Mesmo que possível, eu não posso publicar diretamente, apenas as novas notíci
 
 Eis que entra o [Firebase](https://firebase.google.com/), e sua nova funcionalidade chamada de [functions](https://firebase.google.com/docs/functions), com o qual, eu posso escrever uma função que reage a determinados eventos no banco de dados - por exemplo, quando um novo dado é inserido.
 
-
 ```javascript
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-const request = require('request-promise');
-const buildUrl = require('build-url');
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+const request = require("request-promise");
+const buildUrl = require("build-url");
 
 admin.initializeApp(functions.config().firebase);
 
+exports.notifyChannel = functions.database.ref("/news/{what}/{uid}").onCreate((event) => {
+  const config = functions.config().telegram;
+  const url = buildUrl("https://api.telegram.org", {
+    path: `bot${config.bot.token}/sendMessage`,
+    queryParams: {
+      chat_id: config.channel.chat_id,
+    },
+  });
 
-exports.notifyChannel = functions.database.ref('/news/{what}/{uid}')
-  .onCreate(event => {
-    const config = functions.config().telegram;
-    const url = buildUrl('https://api.telegram.org', {
-      path: `bot${config.bot.token}/sendMessage`,
-      queryParams: {
-        chat_id: config.channel.chat_id,
-      }
-    });
-
-    return request({
-      method: 'POST',
-      uri: url,
-      resolveWithFullResponse: true,
-      body: {
-        text: event.data.val().content
-      },
-      json: true
-    }).then(response => {
-      if (response.statusCode === 200) {
-        return response.body.id;
-      }
-      throw response.body;
+  return request({
+    method: "POST",
+    uri: url,
+    resolveWithFullResponse: true,
+    body: {
+      text: event.data.val().content,
+    },
+    json: true,
+  }).then((response) => {
+    if (response.statusCode === 200) {
+      return response.body.id;
     }
-  );
+    throw response.body;
+  });
 });
 ```
 

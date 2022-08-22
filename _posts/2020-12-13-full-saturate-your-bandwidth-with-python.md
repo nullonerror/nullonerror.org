@@ -6,11 +6,11 @@ title: >
 
 > I am starting a new series of small snippets of code which I think that maybe useful or inspiring for others.
 
-Let's suppose you have a pandas' `dataframe` with a column named *URL* which one do you want to download.
+Let's suppose you have a pandas' `dataframe` with a column named _URL_ which one do you want to download.
 
 The code below takes the advantage of the multi-core processing using the [ThreadPoolExecutor](https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor) with [requests](https://requests.readthedocs.io/en/master/).
 
-``` python
+```python
 import multiprocessing
 import concurrent.futures
 

@@ -8,7 +8,7 @@ title: >
 
 Inspirado no artigo [Do things, write about it](http://mdswanson.com/blog/2013/08/11/write-things-tell-people.html), resolvi escrever um pouco sobre como funciona o meu blog.
 
-A princípio, optei por utilizar o [App Engine](http://developers.google.com/appengine/) por dois motivos: 1 - suporta python; e 2 - a quota gratuita é bem generosa para o  meu humilde blog :)
+A princípio, optei por utilizar o [App Engine](http://developers.google.com/appengine/) por dois motivos: 1 - suporta python; e 2 - a quota gratuita é bem generosa para o meu humilde blog :)
 
 Meu objetivo era criar algo extremamente simples, similar a essas ferramentas que geram arquivos estáticos. Um projeto bem popular e que faz isso é o [Jekyll](http://jekyllrb.com/), mas como todo bom hacker, decidi reinventar a roda.
 Já havia feito outros projetos que rodam sob o AppEngine, inclusive a primeira versão do blog, e todos esses projetos seguiam os _models_ da documentação, usando o webapp2 e a engine de renderização do django. Como o AppEngine possui um sistema de arquivos somente leitura, uma alternativa é salvar os dados no BigTable, o que não é um grande problema, uma vez que esses dados ficam no memcached na maior parte do tempo.
@@ -19,7 +19,7 @@ Porém, eu queria fazer algo diferente, queria estudar outros frameworks, e foi 
 
 Como faço uso de uma quantidade considerável de javascript, pesquisei por algumas soluções de _lazy loading_, e a que mais me agradou foi o [RequireJS](http://www.requirejs.org/). Vamos ver como ficou essa carga logo abaixo:
 
-``` javascript
+```javascript
 var require = {
   baseUrl: "/static/js",
 
@@ -96,7 +96,7 @@ Adicionar o RequireJS ao projeto é muito simples. Primeiro você configura os m
 
 Outra configuração importante é o _shim_, este _array_ contém todos os módulos que eventualmente possam ser usados. Você pode indicar se algum módulo depende de outro, como no caso do _jQuery.raptorize_ que depende do _jQuery_; isso vai garantir que o _jQuery.raptorize_ será carregado depois que o _jQuery_ já tiver sido carregado! Nesta mesma seção, podemos inserir um código na váriavel _init_ que será executado logo após o módulo ser carregado. No caso do _[clippy](https://www.smore.com/clippy-js)_ temos o seguinte código:
 
-``` javascript
+```javascript
 init: function() {
   clippy.BASE_PATH = '/static/agents/'
   clippy.load('Clippy', function(agent) {
@@ -109,7 +109,7 @@ init: function() {
 
 Ainda neste pequeno bloco de código javascript, temos algumas linhas com _tags_ do jinja2, e um trecho de código que gostaria de destacar são as seguintes linhas:
 
-``` javascript
+```javascript
 deps: [
   'bootstrap',
 
@@ -131,7 +131,7 @@ Bom, isso é um pouco do que acontece no front-end, veremos agora o que se passa
 
 Uma das coisas que ficou mais legal, modéstia à parte, foi a forma que o template correto é carregado e renderizado, sem ter que informar o nome do template para a função _render_, desta forma:
 
-``` python
+```python
 @route('/')
 @memorize
 def index():
@@ -155,14 +155,14 @@ def about():
 
 No trecho de código acima, temos 3 rotas, que são definidas pelo decorator _route_:
 
-* **index**, que corresponde à url "/"
-* **entry** que recebe o parâmetro "slug", que nada mais é do que uma [url amigavél](http://en.wikipedia.org/wiki/Clean_URL)
-* **about**, que não recebe nenhum parâmetro
+- **index**, que corresponde à url "/"
+- **entry** que recebe o parâmetro "slug", que nada mais é do que uma [url amigavél](http://en.wikipedia.org/wiki/Clean_URL)
+- **about**, que não recebe nenhum parâmetro
 
 Nesse momento você deve estar se perguntando: mas como a função render sabe qual template carregar se essa informação não é passada?
 De uma forma bem simples, meu caro leitor, lembra-se da [call stack](http://en.wikipedia.org/wiki/Call_stack)? Pois então, fazendo uso da biblioteca [inspect](http://docs.python.org/2/library/inspect.html) é possível examinar a call stack em tempo de execução, e assim, saber qual função chamou a função _render_. Com o nome da função, basta concatenar o nome dela com a extensão _template_ e renderizar com o jinja2 repassando os parâmetros passados
 
-``` python
+```python
 def render(*args, **kwargs):
   import inspect
   callframe = inspect.getouterframes(inspect.currentframe(), 2)
@@ -176,7 +176,7 @@ Mais tarde, durante uma entrevista de emprego, vim a saber que alguns frameworks
 
 E por falar em DRY, uma tarefa que acabou ficando extremamente repetitiva foi a manipulação de valores no memcache. Na [documentação do AppEngine](https://developers.google.com/appengine/docs/python/memcache/usingmemcache) temos o seguinte exemplo:
 
-``` python
+```python
 def get_data():
   data = memcache.get('key')
   if data is not None:
@@ -189,7 +189,7 @@ def get_data():
 
 Contudo, como só pretendo fazer _cache_ das chamadas _get_, decidi criar um decorator chamado _memorize_
 
-``` python
+```python
 from google.appengine.api import memcache
 
 class memorize():
@@ -211,7 +211,7 @@ Basicamente o que esse decorator faz é gerar uma chave usando a url com seus pa
 
 Para inserir uma nova entrada no blog, deve-se criar dois arquivos, cada um com uma extensão previamente estabelecida (poderia ser apenas um único arquivo e fazer um split usando uma determinada _tag_, mas achei que ficaria meio _chunchado_), então são dois arquivos com o mesmo nome, porém um deles é terminado em _.entry_, que contém o HTML que será exibido, e o outro, terminado em _.meta_ é um [YAML](http://www.yaml.org/) com as informações básicas, como título, data de publicação, tags e se é público ou não. Para automatizar essa inserção de dados, faço uso de [post-receive hooks](https://help.github.com/articles/post-receive-hooks) do github, ou seja, logo após um _git push_ o github faz uma chamada _POST_ com um _json_ descrito na documentção do github; com esse json em mãos, basta fazer o _parsing_ e ver quais arquivos foram modificados ou adicionados, com as extensões mencionadas acima:
 
-``` python
+```python
 for commit in payload['commits']:
   for action, files  in commit.iteritems():
     if action in ['added', 'modified']:
@@ -222,7 +222,7 @@ for commit in payload['commits']:
 
 Assim, basta montar a url completa com a função build_url:
 
-``` python
+```python
 github = {
   'url' : 'https://raw.github.com',
   'repository' : 'nullonerror-posts',
@@ -236,7 +236,7 @@ def build_url(filename):
 
 Note o "raw" na url, esse é o caminho para o arquivo crú, isso significa que posso baixar o arquivo no seu formato original, assim como foi mencionado acima, tenho dois tipos de arquivos que são tratados de forma especial, como visto abaixo:
 
-``` python
+```python
 from google.appengine.api import urlfetch
 from utils import build_url
 result = urlfetch.fetch(url = build_url(filename))
@@ -260,7 +260,7 @@ else:
 
 Assim como eu posso inserir ou atualizar as entradas, posso fazer o mesmo na hora de remover
 
-``` python
+```python
 elif action in ['removed']:
   for filename in files:
     basename, extension = os.path.splitext(filename)

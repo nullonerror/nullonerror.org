@@ -6,11 +6,11 @@ title: >
 
 I write a lot of [Telegram bots](https://core.telegram.org/bots) using the library [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot). Writing Telegram bots is fun, but you will also need someplace to host them.
 
-I personally like the new [Google Cloud Run](https://cloud.google.com/run); or run, for short, is perfect because it has a *"gorgeous"* [free quota](https://cloud.google.com/run/pricing) that should be mostly sufficient to host your bots, also, and is it super simple to deploy and get running.
+I personally like the new [Google Cloud Run](https://cloud.google.com/run); or run, for short, is perfect because it has a _"gorgeous"_ [free quota](https://cloud.google.com/run/pricing) that should be mostly sufficient to host your bots, also, and is it super simple to deploy and get running.
 
-To create Telegram bots, first, you need to talk to [BotFather](https://t.me/botfather) and get a *TOKEN*.
+To create Telegram bots, first, you need to talk to [BotFather](https://t.me/botfather) and get a _TOKEN_.
 
-Secondly, you need some coding. As I mentioned before, you can use *python-telegram-bot* to do your bots. Here is the [documentation](https://python-telegram-bot.org/).
+Secondly, you need some coding. As I mentioned before, you can use _python-telegram-bot_ to do your bots. Here is the [documentation](https://python-telegram-bot.org/).
 
 ### Code
 
@@ -18,7 +18,7 @@ Here is the base code that you will need to run on Cloud Run.
 
 `main.py`
 
-``` python
+```python
 import os
 import http
 
@@ -49,7 +49,7 @@ def index() -> Response:
 
 `requirements.txt`
 
-``` text
+```text
 flask==2.0.2
 gunicorn==20.1.0
 python-telegram-bot==13.7
@@ -57,7 +57,7 @@ python-telegram-bot==13.7
 
 `Dockerfile`
 
-``` dockerfile
+```dockerfile
 FROM python:3.8-slim
 ENV PYTHONUNBUFFERED True
 WORKDIR /app
@@ -72,7 +72,7 @@ CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
 
 Finally, you need to deploy. You can do it in a single step, but first, let's run the command below to set the default region (optionally).
 
-``` bash
+```bash
 gcloud config set run/region us-central1
 ```
 
@@ -85,7 +85,7 @@ export TOKEN=your-telegram-bot-token
 
 Then deploy to Cloud Run
 
-``` bash
+```bash
 gcloud beta run deploy bot \
     --source . \
     --set-env-vars TOKEN=${TOKEN} \
@@ -94,9 +94,9 @@ gcloud beta run deploy bot \
     --project ${PROJECT_ID}
 ```
 
-After this, you will receive a public *URL* of your run, and you will need to set the Telegram bot `webHook` using *cURL* (only need to be done once)
+After this, you will receive a public _URL_ of your run, and you will need to set the Telegram bot `webHook` using _cURL_ (only need to be done once)
 
-``` bash
+```bash
 curl "https://api.telegram.org/bot${TOKEN}/setWebhook?url=$(gcloud run services describe bot --format 'value(status.url)' --project ${PROJECT_ID})"
 ```
 
