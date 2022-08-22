@@ -117,7 +117,7 @@ for (const spec of validSpecs) {
       await k8sApi.patch(spec)
     } catch (e) {
       // if not exist, create it
-      k8sApi.create(spec)
+      await k8sApi.create(spec)
     }
   }
 }
