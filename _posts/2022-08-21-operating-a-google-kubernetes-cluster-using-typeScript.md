@@ -107,18 +107,24 @@ const specs = yaml.loadAll(
 const validSpecs = specs.filter((spec) => spec && spec.kind && spec.metadata);
 
 for (const spec of validSpecs) {
-  spec.metadata = spec.metadata || {}
-    spec.metadata.annotations = spec.metadata.annotations || {}
-    delete spec.metadata.annotations['kubectl.kubernetes.io/last-applied-configuration']
-    spec.metadata.annotations['kubectl.kubernetes.io/last-applied-configuration'] = JSON.stringify(spec)
-    try {
-      // if exists, update it
-      await k8sApi.read(spec)
-      await k8sApi.patch(spec)
-    } catch (e) {
-      // if not exist, create it
-      await k8sApi.create(spec)
-    }
+  spec.metadata = spec.metadata || {};
+  spec.metadata.annotations = spec.metadata.annotations || {};
+
+  delete spec.metadata.annotations[
+    "kubectl.kubernetes.io/last-applied-configuration"
+  ];
+
+  spec.metadata.annotations[
+    "kubectl.kubernetes.io/last-applied-configuration"
+  ] = JSON.stringify(spec);
+
+  try {
+    // if exists, update it
+    await k8sApi.read(spec);
+    await k8sApi.patch(spec);
+  } catch (e) {
+    // if not exist, create it
+    await k8sApi.create(spec);
   }
 }
 ```
