@@ -100,9 +100,7 @@ import * as yaml from "js-yaml";
 import * as path from "path";
 import type { KubernetesObject } from "@kubernetes/client-node";
 
-const specs = yaml.loadAll(
-  await fs.readFile(path.resolve("manifest.yaml"), "utf-8")
-) as KubernetesObject[];
+const specs = yaml.loadAll(await fs.readFile(path.resolve("manifest.yaml"), "utf-8")) as KubernetesObject[];
 
 const validSpecs = specs.filter((spec) => spec && spec.kind && spec.metadata);
 
@@ -110,13 +108,9 @@ for (const spec of validSpecs) {
   spec.metadata = spec.metadata || {};
   spec.metadata.annotations = spec.metadata.annotations || {};
 
-  delete spec.metadata.annotations[
-    "kubectl.kubernetes.io/last-applied-configuration"
-  ];
+  delete spec.metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"];
 
-  spec.metadata.annotations[
-    "kubectl.kubernetes.io/last-applied-configuration"
-  ] = JSON.stringify(spec);
+  spec.metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"] = JSON.stringify(spec);
 
   try {
     // if exists, update it
