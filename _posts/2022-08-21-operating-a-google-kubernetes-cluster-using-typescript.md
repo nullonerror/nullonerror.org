@@ -4,6 +4,8 @@ title: >
   Operating a Google Kubernetes Cluster Using TypeScript
 ---
 
+![kubectl](/public/2022-08-21-operating-a-google-kubernetes-cluster-using-typescript/kubectl.jpg){: .center }
+
 This post is more to me remember how to do this in the future, but in any case, someone else can need.
 
 ### Dependencies
