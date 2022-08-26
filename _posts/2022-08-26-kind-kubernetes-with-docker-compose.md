@@ -68,9 +68,8 @@ extra_hosts:
 
 And let's replace the hardcoded IP address from `kind.conf` to this hostname on `Makefile`
 
-```makefile
-kind.conf: context
-	kubectl config view --raw | sed -E 's/127.0.0.1|localhost/host.docker.internal/' > kind.conf
+```shell
+kubectl config view --raw | sed -E 's/127.0.0.1|localhost/host.docker.internal/' > kind.conf
 ```
 
 Now let's run again `make compose`
@@ -83,9 +82,8 @@ Nice, now the app can connect to kind, but the certificates that kind are issuin
 
 ### Issuing the certificate
 
-```makefile
-cluster: clean
-	kind create cluster --config=kind.yaml
+```shell
+kind create cluster --config=kind.yaml
 ```
 
 ```yaml
