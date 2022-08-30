@@ -1,7 +1,7 @@
 ---
 layout: post
 title: >
-  Kind (Kubernetes in Docker) with Docker Compose
+  Kind (Kubernetes in Docker) with Docker compose
 ---
 
 ### What is this?

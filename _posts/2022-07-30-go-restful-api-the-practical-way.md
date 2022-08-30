@@ -1,7 +1,7 @@
 ---
 layout: post
 title: >
-  Go RESTful APIs, The Practical Way
+  Go RESTful APIs, the practical way
 ---
 
 ### Intro

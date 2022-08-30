@@ -1,7 +1,7 @@
 ---
 layout: post
 title: >
-  Operating a Google Kubernetes Cluster Using TypeScript
+  Operating a Google Kubernetes cluster using TypeScript
 ---
 
 ![kubectl](/public/2022-08-21-operating-a-google-kubernetes-cluster-using-typescript/kubectl.jpg){: .center }
