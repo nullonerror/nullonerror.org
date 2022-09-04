@@ -18,16 +18,10 @@ FROM python:3.10-slim AS base
 ...
 
 FROM base
-
-RUN apt-get update \
-    && apt-get install --yes --no-install-recommends libjemalloc2 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
+RUN apt-get update && apt-get install --yes --no-install-recommends libjemalloc2
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
 ENTRYPOINT ...
-
 CMD ...
 ```
 
