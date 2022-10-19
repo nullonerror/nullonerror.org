@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
   SDL_RWops * rwops = PHYSFSRWOPS_openRead("texture001.tga");
 
   // carrega a textura.
-  SDL_Surface * surface = IMG_Load_RW(rwops, 1);
+  SDL_Surface * surface = IMG_Load_RW(rwops, SDL_TRUE);
   SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, surface);
   SDL_FreeSurface(surface);
 
@@ -152,7 +152,7 @@ SDL_RWops * rwops = SDL_RWFromConstMem(buffer, (sizeof(unsigned char) * bytes));
 sqlite3_reset(stmt);
 
 // (como anteriormente) carrega a textura.
-SDL_Surface * surface = IMG_Load_RW(rwops, 1);
+SDL_Surface * surface = IMG_Load_RW(rwops, SDL_TRUE);
 SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, surface);
 SDL_FreeSurface(surface);
 ```
