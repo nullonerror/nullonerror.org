@@ -35,7 +35,7 @@ async def proxy(request: Request) -> Response:
             ),
             stream=True,  # this will enable the request to be processed into chunks, allowing us to use generators
         ),
-        redis.incr(COUNTER_KEY),  # At the same time, increment the key on Redis
+        redis.incr(COUNTER_KEY),  # at the same time, increment the key on Redis
     )
 
     return StreamingResponse(
