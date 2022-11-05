@@ -48,7 +48,7 @@ async def proxy(request: Request) -> Response:
 ```
 
 * `asyncio.gather` [allows us to run tasks concurrently](https://docs.python.org/3/library/asyncio-task.html#id7)
-* `aiter_raw` [returns a generator iterator](https://github.com/encode/httpx/blob/8152c4facd0f71e0f376287e41a0810a60fec9c6/httpx/_models.py#L963-L1002)
+* `aiter_raw` [returns a generator iterator](https://github.com/encode/httpx/blob/1aea9539bbe93b26103e3a722ba0c421f7eb7f82/httpx/_models.py#L963-L989)
 * `StreamingResponse` [takes an async generator or a normal generator/iterator and streams the response body](https://www.starlette.io/responses/#streamingresponse)
 
 And finally, the proxy has an endpoint to get the status
