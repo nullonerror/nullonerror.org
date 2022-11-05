@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Turbinando o carregamento de imagens remotas no Android
-published: true
+title: >
+  Turbinando o carregamento de imagens remotas no Android
 ---
 
 <link rel="prefetch" href="/public/2016-01-28-turbinando-o-carregamento-de-imagens-remotas-no-android/normal.gif">
