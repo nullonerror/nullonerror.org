@@ -33,7 +33,7 @@ async def proxy(request: Request) -> Response:
                 headers=dict(request.headers.raw),  # repass the headers
                 url=request.url.path,  # repass the path
             ),
-            stream=True,  # Note this, this will enable the request to be processed into chunks, allowing us to use generators in the next step
+            stream=True,  # this will enable the request to be processed into chunks, allowing us to use generators
         ),
         redis.incr(COUNTER_KEY),  # At the same time, increment the key on Redis
     )
