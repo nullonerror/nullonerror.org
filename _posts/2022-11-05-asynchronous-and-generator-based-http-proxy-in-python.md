@@ -54,7 +54,7 @@ async def proxy(request: Request) -> Response:
 And finally, the proxy has an endpoint to get the status
 
 ```python
-@app.route("/status", methods=["GET"])
+@app.route("/status")
 async def status(_: Request) -> Response:
     counter, uptime = await asyncio.gather(
         redis.get(COUNTER_KEY),
