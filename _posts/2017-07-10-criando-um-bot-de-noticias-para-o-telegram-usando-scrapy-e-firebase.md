@@ -115,7 +115,7 @@ exports.notifyChannel = functions.database.ref("/news/{what}/{uid}").onCreate((e
 
 Essa função é bem simples; basicamente, em qualquer evento de _onCreate_ ela é chamada, então faço uma chamada `POST` na API do Telegram com o nome do canal, token do bot e conteúdo, que, no caso, é o texto da notícia.
 
-![Pregunta](/public/2017-07-10-criando-um-bot-de-noticias-para-o-telegram-usando-scrapy-e-firebase/pregunta.jpg)
+![Pregunta](/public/2017-07-10-criando-um-bot-de-noticias-para-o-telegram-usando-scrapy-e-firebase/pregunta.jpg){: .center }
 
 ### E como os itens são salvos no Firebase?
 
