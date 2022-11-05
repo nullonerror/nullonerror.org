@@ -69,4 +69,6 @@ async def status(_: Request) -> Response:
     )
 ```
 
-Full source-code [github.com/skhaz/async-generator-based-http-proxy](https://github.com/skhaz/async-generator-based-http-proxy)
+### Source Code
+
+[github.com/skhaz/async-generator-based-http-proxy](https://github.com/skhaz/async-generator-based-http-proxy)
