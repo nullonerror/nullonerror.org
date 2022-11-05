@@ -24,7 +24,7 @@ My proxy should do two things: proxy the request and count how many calls its ha
 ### Implementation
 
 ```python
-@app.route("/{path}", methods=["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"])
+@app.route("/{path}", methods=ALLOWED_METHODS)
 async def proxy(request: Request) -> Response:
     response, _ = await asyncio.gather(
         http.send(
