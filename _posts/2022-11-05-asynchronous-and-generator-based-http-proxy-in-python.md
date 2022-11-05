@@ -13,8 +13,6 @@ My proxy should do two things: proxy the request and count how many calls its ha
 * For doing the HTTP request I choose [httpx](https://www.python-httpx.org/), which is an asynchronous HTTP client.
 * For counting how many requests the proxy had, I choose Redis, Redis has the `incr` _operation_ which is perfect.
 
-> My proxy has something special, it makes use of generators, because of this, it can handle any size of payload with a minimal memory footprint!
-
 ### Features
 
 * Uses multiple asynchronous functions in parallel where is possible
