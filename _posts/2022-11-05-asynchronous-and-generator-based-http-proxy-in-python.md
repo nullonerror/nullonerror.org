@@ -29,9 +29,9 @@ async def proxy(request: Request) -> Response:
     response, _ = await asyncio.gather(
         http.send(
             http.build_request(
-                method=request.method,  # repass the method
-                headers=dict(request.headers.raw),  # repass the headers
-                url=request.url.path,  # repass the path
+                method=request.method,  # repasses the method
+                headers=dict(request.headers.raw),  # repasses the headers
+                url=request.url.path,  # repasses the path
             ),
             stream=True,  # this will enable the request to be processed into chunks, allowing us to use generators
         ),
@@ -40,8 +40,8 @@ async def proxy(request: Request) -> Response:
 
     return StreamingResponse(
         response.aiter_raw(),  # returns a generator which will be used by StreamingResponse
-        headers=response.headers,  # repass the headers
-        status_code=response.status_code,  # repass the status code
+        headers=response.headers,  # repasses the headers
+        status_code=response.status_code,  # repasses the status code
         background=BackgroundTask(response.aclose),  # close at the end of the transfer
     )
 ```
