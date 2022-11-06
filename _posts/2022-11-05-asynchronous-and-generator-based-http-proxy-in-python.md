@@ -29,6 +29,7 @@ async def proxy(request: Request) -> Response:
     response, _ = await asyncio.gather(
         http.send(
             http.build_request(
+                content=request.stream(), # repasses the body
                 method=request.method,  # repasses the method
                 headers=dict(request.headers.raw),  # repasses the headers
                 url=request.url.path,  # repasses the path
