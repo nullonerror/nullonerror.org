@@ -4,9 +4,9 @@ title: >
   My cloud workspace
 ---
 
-### Someone else's computer
-
 ![kubectl](/public/2022-12-05-my-cloud-workspace/old-man-yells-at-cloud.jpg){: .center }
+
+### Someone else's computer
 
 Sometimes your development machine is not sufficient for various reasons: For example, you need to build an `x86_64` Docker image and do not want to pay the cost of *QEMU*, or it is on a limited internet; for these and other reasons, I created a terraform to bootstrap a development machine with a single command.
 
