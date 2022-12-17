@@ -75,16 +75,16 @@ This Makefile solves this issue.
 SHELL := bash -eou pipefail
 
 ifeq ($(shell command -v docker-compose;),)
-	COMPOSE := docker compose
+  COMPOSE := docker compose
 else
-	COMPOSE := docker-compose
+  COMPOSE := docker-compose
 endif
 
 help:
-	awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+  awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 run: ## Run the project using docker-compose
-	$(COMPOSE) up --build
+  $(COMPOSE) up --build
 ```
 
 ### Source Code
