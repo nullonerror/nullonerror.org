@@ -32,7 +32,7 @@ ENV PATH /opt/venv/bin:$PATH
 
 ### Poetry
 
-Now install poetry using pip
+Now install poetry using pip inside the virtualenv
 
 ```Dockerfile
 WORKDIR /opt
