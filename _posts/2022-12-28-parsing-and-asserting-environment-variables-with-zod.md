@@ -31,7 +31,7 @@ Where:
 To use is pretty simple. Just import it:
 
 ```typescript
-import { JWT_SECRET, MONGO_DSN, PORT } from './environment'
+import { PORT, JWT_SECRET, MONGO_DSN } from './environment'
 ```
 
 ### Learn more
