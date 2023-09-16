@@ -3,7 +3,8 @@ name: Health Check
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"
+    # - cron: "0 * * * *"
+    - cron: "0 0 0 0 0"
 
 jobs:
   health:
@@ -11,7 +12,7 @@ jobs:
     steps:
       - name: Check health
         run: |
-          curl "${SITE_URL}" && curl -fsS -m 10 --retry 5 -o /dev/null "https://hc-ping.com/${HEALTH_UUID}"
+          curl "${SITE_URL}" && curl -fsS -m 10 --retry 5 -o /dev/null "https://hc-ping.com/${HEALTH_UUID}" || exit 1
         env:
           HEALTH_UUID: ${{ secrets.HEALTH_UUID }}
           SITE_URL: ${{ secrets.SITE_URL }}
