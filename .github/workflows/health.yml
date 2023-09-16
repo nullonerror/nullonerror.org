@@ -12,7 +12,13 @@ jobs:
     steps:
       - name: Check health
         run: |
-          curl "${SITE_URL}" && curl -fsS -m 10 --retry 5 -o /dev/null "https://hc-ping.com/${HEALTH_UUID}" || exit 1
+          STATUSCODE=$(curl -s -o /dev/null --write-out "%{http_code}" "${SITE_URL}")
+
+          if test $STATUSCODE -ne 200; then
+            exit 1
+          fi
+
+          curl -fsS -m 10 --retry 5 -o /dev/null "https://hc-ping.com/${HEALTH_UUID}"
         env:
           HEALTH_UUID: ${{ secrets.HEALTH_UUID }}
           SITE_URL: ${{ secrets.SITE_URL }}
