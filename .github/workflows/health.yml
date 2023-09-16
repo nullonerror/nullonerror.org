@@ -15,6 +15,7 @@ jobs:
           STATUSCODE=$(curl -s -o /dev/null --write-out "%{http_code}" "${SITE_URL}")
 
           if test $STATUSCODE -ne 200; then
+            echo "Site is down with status code $STATUSCODE"
             exit 1
           fi
 
