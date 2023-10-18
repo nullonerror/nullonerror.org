@@ -93,21 +93,21 @@ Now let's proceed with a typical Arduino program structure, with the setup and l
 ```cpp
 void setup()
 {
-	// For debugging.
+  // For debugging.
   Serial.begin(115200);
 
-	// Connect to WiFi.
+  // Connect to WiFi.
   WiFi.mode(WIFI_STA);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
-	// Wait for the connection.
+  // Wait for the connection.
   while (WiFi.status() != WL_CONNECTED)
   {
     delay(500);
     Serial.print(".");
   }
 
-	// Show WiFi information.
+  // Show WiFi information.
   Serial.println();
   Serial.print("Connected to ");
   Serial.println(WIFI_SSID);
@@ -133,26 +133,26 @@ void on_sensor(const uint64_t *sensor_data, size_t sensor_data_size) {
   // Create a new instance of the CBOR writer.
   cbor::Writer cbor{bp};
 
-	// Reset BytesPrint instance.
+  // Reset BytesPrint instance.
   bp.reset();
 
-	// Indicates that what follows is an array of a certain size.
+  // Indicates that what follows is an array of a certain size.
   cbor.beginArray(sensor_data_size);
   for (size_t i = 0; i < sensor_data_size; i++)
   {
-	  // For each item in the array, write it to CBOR.
+    // For each item in the array, write it to CBOR.
     cbor.writeUnsignedInt(sensor_data[i]);
   }
 
-	// Get the final CBOR size.
+  // Get the final CBOR size.
   const size_t lenght = cbor.getWriteSize();
 
-	// Compress the CBOR buffer using ZSTD.
+  // Compress the CBOR buffer using ZSTD.
   size_t compressedSize = ZSTD_compress(zbytes, kZBytesSize, bytes, lenght, ZSTD_CLEVEL_DEFAULT);
 
-	// Publish the binary compressed data onto the topic.
-	char topic[128];
-	sprintf(topic, "sensors/%s/v1", THINGNAME);
+  // Publish the binary compressed data onto the topic.
+  char topic[128];
+  sprintf(topic, "sensors/%s/v1", THINGNAME);
   pubsub.publish(topic, zbytes, compressedSize, false);
 }
 ```
