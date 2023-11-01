@@ -69,7 +69,7 @@ jobs:
           predefinedAcl: publicRead
 ```
 
-You can check it out at https://gcs.skhaz.dev/resume.pdf
+You can check it out at [https://gcs.skhaz.dev/resume.pdf](https://gcs.skhaz.dev/resume.pdf).
 
 ## GitHub Stars
 
