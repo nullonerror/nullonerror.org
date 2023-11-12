@@ -6,7 +6,7 @@ title: >
 
 > I have less than 16 milliseconds to do more than thousands of operations.
 
-Roughly 15 years ago, during an extended summer holiday, in a shared room of a student residence, I found myself endeavoring to port [my 2D game](https://github.com/skhaz/wintermoon) engine built on top of [SDL](https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer) to the [Google Native Client \(NaCl\)](https://en.wikipedia.org/wiki/Google_Native_Client). NaCl served as a sandboxing mechanism for Chrome, enabling the execution of native code within the browser, specifically within the Chrome browser. It's safe to assert that NaCl can be considered the progenitor of WebAssembly.
+Roughly 15 years ago, during an extended summer holiday, in a shared room of a student residence, I found myself endeavoring to port [my 2D game](https://github.com/skhaz/wintermoon) engine built on top of [SDL](https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer) to the [Google Native Client \(NaCl\)](https://en.wikipedia.org/wiki/Google_Native_Client). NaCl served as a sandboxing mechanism for Chrome, enabling the execution of native code within the browser, specifically within the Chrome browser. It's safe to assert that NaCl can be considered the progenitor of [WebAssembly](https://webassembly.org).
 
 A considerable amount of time has elapsed, and many changes have transpired. I transitioned from game development to web development, yet low-level programming has always coursed through my veins. Consequently, I resolved to revive the dream of crafting my own game engine running on the web. Today, with the advent of WebAssembly, achieving this goal is significantly more feasible and portable.
 
