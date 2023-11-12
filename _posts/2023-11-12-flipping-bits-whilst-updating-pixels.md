@@ -34,6 +34,6 @@ And you might be wondering, 'How do you debug this?' Firstly, for various reason
 
 By the way, a binary and all its dependencies compiled with all sanitizers and debugging symbols can easily surpass 300 megabytes! So, I recommend compiling with -Os or -O1.
 
-<iframe src="https://trial.carimbo.cloud/" frameBorder="0"></iframe>
+<iframe src="https://trial.carimbo.cloud/" width="800%" height="600px" frameborder="0"></iframe>
 
 [The source code for the Carimbo](https://github.com/carimbolabs/carimbo)
