@@ -34,23 +34,6 @@ And you might be wondering, 'How do you debug this?' Firstly, for various reason
 
 By the way, a binary and all its dependencies compiled with all sanitizers and debugging symbols can easily surpass 300 megabytes! So, I recommend compiling with -Os or -O1.
 
-<style>
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-</style>
-<div class="container">
-  <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
-  <script type="text/javascript" type="module">
-    var Module = {
-      canvas: (function () {
-        return document.getElementById("canvas");
-      })(),
-    };
-  </script>
-  <script type="text/javascript" src="/public/2023-11-12-flipping-bits-whilst-updating-pixels/carimbo.js"></script>
-</div>
+<iframe src="https://trial.carimbo.cloud/" frameBorder="0"></iframe>
 
 [The source code for the Carimbo](https://github.com/carimbolabs/carimbo)
