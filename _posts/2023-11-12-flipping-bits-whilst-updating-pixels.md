@@ -31,7 +31,7 @@ With the `emsdk`, I could finally fulfill my long-held aspiration.
 
 ![](/public/2023-11-12-flipping-bits-whilst-updating-pixels/blank.jpeg){: .center }
 
-Yes, a black screen and an overwhelming sense of victory. I had successfully ported my code to run in the browser. Now, all that remained was to figure out how to load the assets. However, the event loop was running just a tad below 60 frames per second due to a bug in the counter.
+Yes, a black screen and an overwhelming sense of victory. I had successfully ported my code to run in the browser. Now, all that remained was to figure out how to load the assets (at that time). However, the event loop was running just a tad below 60 frames per second due to a bug in the counter.
 
 And you might be wondering, 'How do you debug this?' Firstly, for various reasons that can burden the final binary, a lot is stripped away. Therefore, we need to recompile everything and all dependencies with sanitizers and debugging symbols. Secondly, WebAssembly should be linked with **sASSERTIONS=2**, **-sRUNTIME_DEBUG**, and **--profiling**. This way, it's possible to see the stack trace in the browser console as if by magic. Additionally, [Chrome has a debugger](https://developer.chrome.com/blog/wasm-debugging-2020/) that allows you to insert breakpoints within your source code and inspect step by step.
 
