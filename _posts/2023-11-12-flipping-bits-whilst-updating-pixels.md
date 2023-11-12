@@ -12,7 +12,7 @@ A considerable amount of time has elapsed, and many changes have transpired. I t
 
 Therefore, I created Carimbo 🇧🇷, meaning "stamp" in English. The name encapsulates the notion that 2D engines are continually stamping sprites onto the screen.
 
-![](/public/2023-11-12-flipping-bits-whilst-updating-pixels/carimbo.png)
+![](/public/2023-11-12-flipping-bits-whilst-updating-pixels/carimbo.png){: .center }
 
 This engine shares the foundational principles of _Wintermoon_; it is built upon the SDL library, employs Lua for scripting, and consolidates all assets within a compressed LZMA file, which is unpacked when the engine initializes.
 
@@ -26,7 +26,7 @@ It was during this exploration that I discovered Conan's support for various too
 
 With the `emsdk`, I could finally fulfill my long-held aspiration.
 
-![](/public/2023-11-12-flipping-bits-whilst-updating-pixels/blank.jpeg)
+![](/public/2023-11-12-flipping-bits-whilst-updating-pixels/blank.jpeg){: .center }
 
 Yes, a black screen and an overwhelming sense of victory. I had successfully ported my code to run in the browser. Now, all that remained was to figure out how to load the assets. However, the event loop was running just a tad below 60 frames per second due to a bug in the counter.
 
@@ -34,6 +34,6 @@ And you might be wondering, 'How do you debug this?' Firstly, for various reason
 
 By the way, a binary and all its dependencies compiled with all sanitizers and debugging symbols can easily surpass 300 megabytes! So, I recommend compiling with -Os or -O1.
 
-<iframe src="https://trial.carimbo.cloud/" width="800%" height="600px" frameborder="0"></iframe>
-
 [The source code for the Carimbo](https://github.com/carimbolabs/carimbo)
+
+<iframe src="/public/2023-11-12-flipping-bits-whilst-updating-pixels/index.html" style="display:block; display: block; margin: auto;" width="800px" height="600px" frameborder="0"></iframe>
