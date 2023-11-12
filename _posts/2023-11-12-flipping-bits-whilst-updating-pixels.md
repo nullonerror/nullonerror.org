@@ -12,9 +12,10 @@ A considerable amount of time has elapsed, and many changes have transpired. I t
 
 Therefore, I created Carimbo 🇧🇷, meaning "stamp" in English. The name encapsulates the notion that 2D engines are continually stamping sprites onto the screen.
 
-![](/public/2023-11-12-flipping-bits-whilst-updating-pixels/carimbo.webp){: .center }
-
-> Artwork by [@yuugenpixie](https://www.fiverr.com/yuugenpixie).
+<figure>
+  <img src="/public/2023-11-12-flipping-bits-whilst-updating-pixels/carimbo.webp" alt="Carimbo" class="center">
+  <figcaption>Artwork by <a href="https://www.fiverr.com/yuugenpixie">@yuugenpixie</a></figcaption>
+</figure>
 
 This engine shares the foundational principles of _Wintermoon_; it is built upon the SDL library, employs Lua for scripting, and consolidates all assets within a compressed LZMA file, which is unpacked when the engine initializes.
 
