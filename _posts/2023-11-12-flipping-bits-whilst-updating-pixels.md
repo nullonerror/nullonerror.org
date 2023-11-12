@@ -39,4 +39,6 @@ By the way, a binary and all its dependencies compiled with all sanitizers and d
 
 [The source code for the Carimbo](https://github.com/carimbolabs/carimbo)
 
+Check out the engine running below; this is just a concept without audio and joystick support.
+
 <iframe src="/public/2023-11-12-flipping-bits-whilst-updating-pixels/index.html" style="display:block; display: block; margin: auto;" width="800px" height="600px" frameborder="0"></iframe>
