@@ -17,7 +17,7 @@ Therefore, I created Carimbo 🇧🇷, meaning "stamp" in English. The name enca
   <figcaption>Artwork by <a href="https://www.fiverr.com/yuugenpixie">@yuugenpixie</a></figcaption>
 </figure>
 
-This engine shares the foundational principles of _Wintermoon_; it is built upon the SDL library, employs Lua for scripting, and consolidates all assets within a compressed LZMA file, which is unpacked when the engine initializes.
+This engine shares the foundational principles of _Wintermoon_; it is built upon the SDL library, employs Lua for scripting, and consolidates all assets within a compressed LZMA file, which is _mounted_ when the engine initializes.
 
 In essence, it operates as follows: video, audio, joystick, network, and file system components are initialized. Then, the 'bundle.zip' file is mounted. When I say 'mounted,' I employ a library that makes read and write operations within the compressed file entirely transparent, eliminating the need for decompression, which is excellent. Subsequently, the 'main.lua' file is executed. This file should utilize the factory to construct the engine, which is the cornerstone. Following this, the script must spawn entities and other objects to be used within the game. Finally, with the game defined, the script should invoke the 'run' method of the engine, which will block and initiate the event loop.
 
