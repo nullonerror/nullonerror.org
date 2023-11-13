@@ -25,7 +25,7 @@ However, this time around, the tooling for C++ has significantly improved compar
 
 Speaking of package managers, in Carimbo, I opted for [Conan](https://conan.io/), which, in my opinion, is an excellent package manager.
 
-It was during this exploration that I discovered Conan's support for various toolings, including `[emsdk](https://github.com/emscripten-core/emsdk)`—the Software Development Kit (SDK) and compiler for the Emscripten project. Emscripten is an LLVM/Clang-based compiler designed to translate C and C++ source code into WebAssembly.
+It was during this exploration that I discovered Conan's support for various toolings, including [emsdk](https://github.com/emscripten-core/emsdk)—the Software Development Kit (SDK) and compiler for the Emscripten project. Emscripten is an LLVM/Clang-based compiler designed to translate C and C++ source code into WebAssembly.
 
 With the `emsdk`, I could finally fulfill my long-held aspiration.
 
