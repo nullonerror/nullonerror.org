@@ -150,158 +150,158 @@ In the program, I have two goroutines running in parallel. In one of them, I que
 package main
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
-	"io"
-	"log"
-	"math"
-	"net/http"
-	"os"
-	"strconv"
-	"sync"
-	"time"
+  "bytes"
+  "encoding/json"
+  "fmt"
+  "io"
+  "log"
+  "math"
+  "net/http"
+  "os"
+  "strconv"
+  "sync"
+  "time"
 )
 
 type DateRange struct {
-	StartDate string `json:"start_date"`
-	EndDate   string `json:"end_date"`
+  StartDate string `json:"start_date"`
+  EndDate   string `json:"end_date"`
 }
 
 type Summary struct {
-	TrackedSecond int `json:"tracked_seconds"`
+  TrackedSecond int `json:"tracked_seconds"`
 }
 
 func toggl(result chan<- int, wg *sync.WaitGroup) {
-	defer wg.Done()
+  defer wg.Done()
 
-	var (
-		now      = time.Now()
-		firstDay = time.Date(now.Year(), now.Month(), 1, 0, 0, 0, 0, time.UTC)
-		lastDay  = firstDay.AddDate(0, 1, -1)
+  var (
+    now      = time.Now()
+    firstDay = time.Date(now.Year(), now.Month(), 1, 0, 0, 0, 0, time.UTC)
+    lastDay  = firstDay.AddDate(0, 1, -1)
 
-		url       = fmt.Sprintf("https://api.track.toggl.com/reports/api/v3/workspace/%s/projects/summary", os.Getenv("TOGGL_WORKSPACE_ID"))
-		dataRange = DateRange{
-			StartDate: firstDay.Format("2006-01-02"),
-			EndDate:   lastDay.Format("2006-01-02"),
-		}
-	)
+    url       = fmt.Sprintf("https://api.track.toggl.com/reports/api/v3/workspace/%s/projects/summary", os.Getenv("TOGGL_WORKSPACE_ID"))
+    dataRange = DateRange{
+      StartDate: firstDay.Format("2006-01-02"),
+      EndDate:   lastDay.Format("2006-01-02"),
+    }
+  )
 
-	payload, err := json.Marshal(dataRange)
-	if err != nil {
-		log.Fatalln(err)
-	}
+  payload, err := json.Marshal(dataRange)
+  if err != nil {
+    log.Fatalln(err)
+  }
 
-	req, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(payload))
-	if err != nil {
-		log.Fatalln(err)
-	}
+  req, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(payload))
+  if err != nil {
+    log.Fatalln(err)
+  }
 
-	req.Header.Set("Content-Type", "application/json")
-	req.SetBasicAuth(os.Getenv("TOGGL_EMAIL"), os.Getenv("TOGGL_PASSWORD"))
+  req.Header.Set("Content-Type", "application/json")
+  req.SetBasicAuth(os.Getenv("TOGGL_EMAIL"), os.Getenv("TOGGL_PASSWORD"))
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer resp.Body.Close()
+  client := &http.Client{}
+  resp, err := client.Do(req)
+  if err != nil {
+    log.Fatalln(err)
+  }
+  defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
+  body, err := io.ReadAll(resp.Body)
+  if err != nil {
+    log.Fatalln(err)
+  }
 
-	var summaries []Summary
-	if err = json.Unmarshal(body, &summaries); err != nil {
-		log.Fatalln(err)
-	}
+  var summaries []Summary
+  if err = json.Unmarshal(body, &summaries); err != nil {
+    log.Fatalln(err)
+  }
 
-	total := 0
-	for _, summary := range summaries {
-		total += summary.TrackedSecond
-	}
+  total := 0
+  for _, summary := range summaries {
+    total += summary.TrackedSecond
+  }
 
-	hourlyRate, err := strconv.Atoi(os.Getenv("TOGGL_HOURLY_RATE"))
-	if err != nil {
-		log.Fatalln(err)
-	}
+  hourlyRate, err := strconv.Atoi(os.Getenv("TOGGL_HOURLY_RATE"))
+  if err != nil {
+    log.Fatalln(err)
+  }
 
-	result <- (total / 3600) * hourlyRate
+  result <- (total / 3600) * hourlyRate
 }
 
 type CurrencyData struct {
-	Quotes struct {
-		USDBRL float64 `json:"USDBRL"`
-	} `json:"quotes"`
+  Quotes struct {
+    USDBRL float64 `json:"USDBRL"`
+  } `json:"quotes"`
 }
 
 func husky(result chan<- int, wg *sync.WaitGroup) {
-	defer wg.Done()
+  defer wg.Done()
 
-	var (
-		currency = os.Getenv("HUSKY_CURRENCY")
-		url      = fmt.Sprintf("https://api.apilayer.com/currency_data/live?base=USD&symbols=%s&currencies=%s", currency, currency)
-	)
+  var (
+    currency = os.Getenv("HUSKY_CURRENCY")
+    url      = fmt.Sprintf("https://api.apilayer.com/currency_data/live?base=USD&symbols=%s&currencies=%s", currency, currency)
+  )
 
-	req, err := http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		log.Fatalln(err)
-	}
+  req, err := http.NewRequest(http.MethodGet, url, nil)
+  if err != nil {
+    log.Fatalln(err)
+  }
 
-	req.Header.Set("apikey", os.Getenv("APILAYER_APIKEY"))
+  req.Header.Set("apikey", os.Getenv("APILAYER_APIKEY"))
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer resp.Body.Close()
+  client := &http.Client{}
+  resp, err := client.Do(req)
+  if err != nil {
+    log.Fatalln(err)
+  }
+  defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
+  body, err := io.ReadAll(resp.Body)
+  if err != nil {
+    log.Fatalln(err)
+  }
 
-	var data CurrencyData
-	if err = json.Unmarshal(body, &data); err != nil {
-		log.Fatalln(err)
-	}
+  var data CurrencyData
+  if err = json.Unmarshal(body, &data); err != nil {
+    log.Fatalln(err)
+  }
 
-	monthlySalary, err := strconv.ParseFloat(os.Getenv("HUSKY_MONTHLY_SALARY"), 64)
-	if err != nil {
-		log.Fatalln(err)
-	}
+  monthlySalary, err := strconv.ParseFloat(os.Getenv("HUSKY_MONTHLY_SALARY"), 64)
+  if err != nil {
+    log.Fatalln(err)
+  }
 
-	gross := int(math.Floor(monthlySalary * data.Quotes.USDBRL))
-	deduction := gross * 1 / 100
-	result <- gross - deduction
+  gross := int(math.Floor(monthlySalary * data.Quotes.USDBRL))
+  deduction := gross * 1 / 100
+  result <- gross - deduction
 }
 
 func main() {
-	var (
-		ch    = make(chan int)
-		wg    sync.WaitGroup
-		funcs = []func(chan<- int, *sync.WaitGroup){toggl, husky}
-	)
+  var (
+    ch    = make(chan int)
+    wg    sync.WaitGroup
+    funcs = []func(chan<- int, *sync.WaitGroup){toggl, husky}
+  )
 
-	wg.Add(len(funcs))
+  wg.Add(len(funcs))
 
-	for _, fun := range funcs {
-		go fun(ch, &wg)
-	}
+  for _, fun := range funcs {
+    go fun(ch, &wg)
+  }
 
-	go func() {
-		wg.Wait()
-		close(ch)
-	}()
+  go func() {
+    wg.Wait()
+    close(ch)
+  }()
 
-	var sum int
-	for result := range ch {
-		sum += result
-	}
+  var sum int
+  for result := range ch {
+    sum += result
+  }
 
-	fmt.Print(sum)
+  fmt.Print(sum)
 }
 ```
 
