@@ -68,21 +68,6 @@ var require = {
 
   callback: function() {
     $(function() {
-      window._gaq = window._gaq || [];
-      window._gaq.push(['_setAccount', '{ { blog.ga_tracking_code } }']);
-      window._gaq.push(['_trackPageview']);
-
-      $.ajax({
-        type : "GET",
-        url: 'http://www.google-analytics.com/ga.js',
-        dataType : "script",
-        data: null,
-        cache : true,
-        success: function() {
-          // 0x90
-        }
-      })
-
       {% raw %}
       {% block ready %}
       {% endblock %}

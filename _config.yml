@@ -4,8 +4,6 @@ url: https://nullonerror.org
 baseurl: ""
 permalink: pretty
 
-analytics: UA-28518341-1
-
 sass:
   sass_dir: _sass
   style: :compressed
