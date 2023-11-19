@@ -51,7 +51,7 @@ function doGet(request) {
       return { url: el[0] };
     });
     return ContentService.createTextOutput(JSON.stringify({ playlist: playlist })).setMimeType(
-      ContentService.MimeType.JSON
+      ContentService.MimeType.JSON,
     );
   }
 }

@@ -217,7 +217,7 @@ exports.startInstancePubSub = async (event, context, callback) => {
 
           return operation.promise();
         }
-      })
+      }),
     );
 
     const message = "Successfully started instance(s)";
@@ -243,7 +243,7 @@ exports.stopInstancePubSub = async (event, context, callback) => {
         } else {
           return Promise.resolve();
         }
-      })
+      }),
     );
 
     const message = "Successfully stopped instance(s)";
