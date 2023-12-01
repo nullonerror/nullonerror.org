@@ -85,12 +85,12 @@ async def webhook(request: Request):
         request.headers.get("X-Telegram-Bot-Api-Secret-Token"),
         os.environ["SECRET"],
     ):
-		# This section prevents false calls, only this application and Telegram know the secret.
+        # This section prevents false calls, only this application and Telegram know the secret.
         return Response(status_code=401)
 
     payload = await request.json()
 
-	# Where the bot becomes operational, the JSON is passed to the application, which in turn processes the request.
+    # Where the bot becomes operational, the JSON is passed to the application, which in turn processes the request.
     async with application:
         await application.process_update(Update.de_json(payload, application.bot))
 
@@ -123,13 +123,13 @@ async def on_run(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
 
     try:
-		# All the code is asynchronous, while the 'run' function is not. Therefore, we execute it in a thread.
+        # All the code is asynchronous, while the 'run' function is not. Therefore, we execute it in a thread.
         coro = asyncio.to_thread(run, text)
 
-		# We execute the thread as a coroutine and limit its execution to 30 seconds.
+        # We execute the thread as a coroutine and limit its execution to 30 seconds.
         result = await asyncio.wait_for(coro, timeout=30)
 
-		# Below, we prevent flooding in groups by placing very long messages into a bucket and returning the public URL.
+        # Below, we prevent flooding in groups by placing very long messages into a bucket and returning the public URL.
         if len(result) > 64:
             blob = bucket.blob(hashlib.sha256(str(text).encode()).hexdigest())
             blob.upload_from_string(result)
@@ -137,10 +137,10 @@ async def on_run(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
             result = blob.public_url
 
-		# Respond to the message with the result, which can be either an error or a success.
+        # Respond to the message with the result, which can be either an error or a success.
         await message.reply_text(result)
     except asyncio.TimeoutError:
-		# If the code exceeds the time limit or takes too long to compile, we return some emojis.
+        # If the code exceeds the time limit or takes too long to compile, we return some emojis.
         await message.reply_text("⏰😮‍💨")
 ```
 
@@ -187,9 +187,9 @@ def run(source: str) -> str:
                     engine = Engine(config)
                     store = Store(engine)
                     store.set_wasi(wasi)
-					# Limits the RAM.
+                    # Limits the RAM.
                     # store.set_limits(16 * 1024 * 1024)
-					# Limits the CPU.
+                    # Limits the CPU.
                     # store.set_fuel(10_000_000_000)
 
                     linker = Linker(engine)
@@ -197,7 +197,7 @@ def run(source: str) -> str:
                     module = Module(store.engine, binary.read())
                     instance = linker.instantiate(store, module)
 
-					# `_start` is the binary entrypoint, also known as main.
+                    # `_start` is the binary entrypoint, also known as main.
                     start = instance.exports(store)["_start"]
                     assert isinstance(start, Func)
 
