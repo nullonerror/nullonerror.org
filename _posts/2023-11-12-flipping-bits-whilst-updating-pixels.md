@@ -1,7 +1,7 @@
 ---
 layout: post
 title: >
-  Flipping bits whilst updating pixels
+  Flipping Bits Whilst Updating Pixels
 ---
 
 > I have less than 16 milliseconds to do more than thousands of operations.
