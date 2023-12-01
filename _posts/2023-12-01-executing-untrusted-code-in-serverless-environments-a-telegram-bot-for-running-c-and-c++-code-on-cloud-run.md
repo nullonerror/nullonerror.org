@@ -218,6 +218,12 @@ def run(source: str) -> str:
 
 ## Deploy
 
+In the past, I always used Google's tools for deployment, but this time I tried building the Docker image in GitHub Action, which gave me two huge advantages.
+
+1. Cache: I don't know why, but I never got the cache to work in Cloud Build. With GitHub, it's just a matter of using a flag.
+2. Modern Docker syntax usage: In Cloud Build, it's not possible to use [heredoc](https://www.docker.com/blog/introduction-to-heredocs-in-dockerfiles/), for example.
+3. Speed: I know it's possible to upgrade the Cloud Build machine, but that costs money, and on GitHub, I have a quite generous free quota.
+
 ```yaml
 name: Deploy on Google Cloud Platform
 
@@ -305,12 +311,6 @@ jobs:
           gcloud run services replace service.yaml
           rm -f service.yaml
 ```
-
-In the past, I always used Google's tools for deployment, but this time I tried building the Docker image in GitHub Action, which gave me two huge advantages.
-
-1. Cache: I don't know why, but I never got the cache to work in Cloud Build. With GitHub, it's just a matter of using a flag.
-2. Modern Docker syntax usage: In Cloud Build, it's not possible to use [heredoc](https://www.docker.com/blog/introduction-to-heredocs-in-dockerfiles/), for example.
-3. Speed: I know it's possible to upgrade the Cloud Build machine, but that costs money, and on GitHub, I have a quite generous free quota.
 
 ## Conclusion
 
