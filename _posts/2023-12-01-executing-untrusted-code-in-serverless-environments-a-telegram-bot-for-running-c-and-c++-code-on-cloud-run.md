@@ -158,6 +158,7 @@ def run(source: str) -> str:
             main.flush()
 
             try:
+                # Compile it.
                 result = subprocess.run(
                     [
                         "em++",
@@ -177,9 +178,12 @@ def run(source: str) -> str:
                 if result.returncode != 0:
                     return result.stderr
 
+                # Run it.
                 with open("a.out.wasm", "rb") as binary:
                     wasi = WasiConfig()
+                    # Store the output in a file.
                     wasi.stdout_file = "a.out.stdout"
+                    # Store the errors in a file.
                     wasi.stderr_file = "a.out.stderr"
 
                     config = Config()
@@ -204,10 +208,12 @@ def run(source: str) -> str:
                     try:
                         start(store)
                     except ExitTrap as e:
+                        # If exit code is not 0, we return the errors.
                         if e.code != 0:
                             with open("a.out.stderr", "rt") as stderr:
                                 return stderr.read()
 
+                    # If no errors, we return the output.
                     with open("a.out.stdout", "rt") as stdout:
                         return stdout.read()
             except subprocess.CalledProcessError as e:
