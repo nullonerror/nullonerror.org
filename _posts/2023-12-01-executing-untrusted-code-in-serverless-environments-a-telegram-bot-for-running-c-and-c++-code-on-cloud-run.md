@@ -150,76 +150,76 @@ Each request to execute code is compiled using em++, an 'alias' for clang++, tar
 
 ```python
 def run(source: str) -> str:
-    with TemporaryDirectory() as path:
-        os.chdir(path)
+  with TemporaryDirectory() as path:
+    os.chdir(path)
 
-        with open("main.cpp", "w+t") as main:
-            main.write(source)
-            main.flush()
+    with open("main.cpp", "w+t") as main:
+      main.write(source)
+      main.flush()
 
-            try:
-                # Compile it.
-                result = subprocess.run(
-                    [
-                        "em++",
-                        "-s",
-                        "ENVIRONMENT=node",
-                        "-s",
-                        "WASM=1",
-                        "-s",
-                        "PURE_WASI=1",
-                        "main.cpp",
-                    ],
-                    capture_output=True,
-                    text=True,
-                    check=True,
-                )
+      try:
+        # Compile it.
+        result = subprocess.run(
+          [
+            "em++",
+            "-s",
+            "ENVIRONMENT=node",
+            "-s",
+            "WASM=1",
+            "-s",
+            "PURE_WASI=1",
+            "main.cpp",
+          ],
+          capture_output=True,
+          text=True,
+          check=True,
+        )
 
-                if result.returncode != 0:
-                    return result.stderr
+        if result.returncode != 0:
+          return result.stderr
 
-                # Run it.
-                with open("a.out.wasm", "rb") as binary:
-                    wasi = WasiConfig()
-                    # Store the output in a file.
-                    wasi.stdout_file = "a.out.stdout"
-                    # Store the errors in a file.
-                    wasi.stderr_file = "a.out.stderr"
+        # Run it.
+        with open("a.out.wasm", "rb") as binary:
+          wasi = WasiConfig()
+          # Store the output in a file.
+          wasi.stdout_file = "a.out.stdout"
+          # Store the errors in a file.
+          wasi.stderr_file = "a.out.stderr"
 
-                    config = Config()
-                    # config.consume_fuel = True
-                    engine = Engine(config)
-                    store = Store(engine)
-                    store.set_wasi(wasi)
-                    # Limits the RAM.
-                    # store.set_limits(16 * 1024 * 1024)
-                    # Limits the CPU.
-                    # store.set_fuel(10_000_000_000)
+          config = Config()
+          # config.consume_fuel = True
+          engine = Engine(config)
+          store = Store(engine)
+          store.set_wasi(wasi)
+          # Limits the RAM.
+          # store.set_limits(16 * 1024 * 1024)
+          # Limits the CPU.
+          # store.set_fuel(10_000_000_000)
 
-                    linker = Linker(engine)
-                    linker.define_wasi()
-                    module = Module(store.engine, binary.read())
-                    instance = linker.instantiate(store, module)
+          linker = Linker(engine)
+          linker.define_wasi()
+          module = Module(store.engine, binary.read())
+          instance = linker.instantiate(store, module)
 
-                    # `_start` is the binary entrypoint, also known as main.
-                    start = instance.exports(store)["_start"]
-                    assert isinstance(start, Func)
+          # `_start` is the binary entrypoint, also known as main.
+          start = instance.exports(store)["_start"]
+          assert isinstance(start, Func)
 
-                    try:
-                        start(store)
-                    except ExitTrap as e:
-                        # If exit code is not 0, we return the errors.
-                        if e.code != 0:
-                            with open("a.out.stderr", "rt") as stderr:
-                                return stderr.read()
+          try:
+            start(store)
+          except ExitTrap as e:
+            # If exit code is not 0, we return the errors.
+            if e.code != 0:
+              with open("a.out.stderr", "rt") as stderr:
+                return stderr.read()
 
-                    # If no errors, we return the output.
-                    with open("a.out.stdout", "rt") as stdout:
-                        return stdout.read()
-            except subprocess.CalledProcessError as e:
-                return e.stderr
-            except Exception as e:  # noqa
-                return str(e)
+          # If no errors, we return the output.
+          with open("a.out.stdout", "rt") as stdout:
+            return stdout.read()
+      except subprocess.CalledProcessError as e:
+        return e.stderr
+      except Exception as e:  # noqa
+        return str(e)
 ```
 
 ## Deploy
