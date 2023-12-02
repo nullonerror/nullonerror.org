@@ -61,46 +61,46 @@ Now let's see how it goes with handling the incoming requests.
 
 ```python
 def equals(left: str | None, right: str | None) -> bool:
-	"""
-	Compare two strings using a consistent amount of time to avoid timing attacks.
-	"""
-    if not left or not right:
-        return False
+  """
+  Compare two strings using a consistent amount of time to avoid timing attacks.
+  """
+  if not left or not right:
+    return False
 
-    if len(left) != len(right):
-        return False
+  if len(left) != len(right):
+    return False
 
-    for c1, c2 in zip(left, right):
-        if c1 != c2:
-            return False
+  for c1, c2 in zip(left, right):
+    if c1 != c2:
+      return False
 
-    return True
+  return True
 
 
 async def webhook(request: Request):
-	"""
-	Entry point for requests coming from Telegram.
-	"""
-    if not equals(
-        request.headers.get("X-Telegram-Bot-Api-Secret-Token"),
-        os.environ["SECRET"],
-    ):
-        # This section prevents false calls, only this application and Telegram know the secret.
-        return Response(status_code=401)
+  """
+  Entry point for requests coming from Telegram.
+  """
+  if not equals(
+    request.headers.get("X-Telegram-Bot-Api-Secret-Token"),
+    os.environ["SECRET"],
+  ):
+    # This section prevents false calls, only this application and Telegram know the secret.
+    return Response(status_code=401)
 
-    payload = await request.json()
+  payload = await request.json()
 
-    # Where the bot becomes operational, the JSON is passed to the application, which in turn processes the request.
-    async with application:
-        await application.process_update(Update.de_json(payload, application.bot))
+  # Where the bot becomes operational, the JSON is passed to the application, which in turn processes the request.
+  async with application:
+    await application.process_update(Update.de_json(payload, application.bot))
 
-    return Response(status_code=200)
+  return Response(status_code=200)
 
 
 app = Starlette(
-    routes=[
-        Route("/", webhook, methods=["POST"]),
-    ],
+  routes=[
+    Route("/", webhook, methods=["POST"]),
+  ],
 )
 ```
 
