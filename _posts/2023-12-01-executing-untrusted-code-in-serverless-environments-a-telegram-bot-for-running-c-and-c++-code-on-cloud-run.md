@@ -108,40 +108,40 @@ Finally, we have the handler for messages that start with `/run`.
 
 ```python
 async def on_run(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    message = update.message.reply_to_message or update.message
-    if not message:
-        return
+  message = update.message.reply_to_message or update.message
+  if not message:
+    return
 
-    text = message.text
-    if not text:
-        return
+  text = message.text
+  if not text:
+    return
 
-    text = text.lstrip("/run")
+  text = text.lstrip("/run")
 
-    if not text:
-        await message.reply_text("Luke, I need the code for the Death Star's system.")
-        return
+  if not text:
+    await message.reply_text("Luke, I need the code for the Death Star's system.")
+    return
 
-    try:
-        # All the code is asynchronous, while the 'run' function is not. Therefore, we execute it in a thread.
-        coro = asyncio.to_thread(run, text)
+  try:
+    # All the code is asynchronous, while the 'run' function is not. Therefore, we execute it in a thread.
+    coro = asyncio.to_thread(run, text)
 
-        # We execute the thread as a coroutine and limit its execution to 30 seconds.
-        result = await asyncio.wait_for(coro, timeout=30)
+    # We execute the thread as a coroutine and limit its execution to 30 seconds.
+    result = await asyncio.wait_for(coro, timeout=30)
 
-        # Below, we prevent flooding in groups by placing very long messages into a bucket and returning the public URL.
-        if len(result) > 64:
-            blob = bucket.blob(hashlib.sha256(str(text).encode()).hexdigest())
-            blob.upload_from_string(result)
-            blob.make_public()
+    # Below, we prevent flooding in groups by placing very long messages into a bucket and returning the public URL.
+    if len(result) > 64:
+      blob = bucket.blob(hashlib.sha256(str(text).encode()).hexdigest())
+      blob.upload_from_string(result)
+      blob.make_public()
 
-            result = blob.public_url
+      result = blob.public_url
 
-        # Respond to the message with the result, which can be either an error or a success.
-        await message.reply_text(result)
-    except asyncio.TimeoutError:
-        # If the code exceeds the time limit or takes too long to compile, we return some emojis.
-        await message.reply_text("⏰😮‍💨")
+    # Respond to the message with the result, which can be either an error or a success.
+    await message.reply_text(result)
+  except asyncio.TimeoutError:
+    # If the code exceeds the time limit or takes too long to compile, we return some emojis.
+    await message.reply_text("⏰😮‍💨")
 ```
 
 ## Running Untrusted Code
