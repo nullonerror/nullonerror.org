@@ -320,8 +320,8 @@ jobs:
 
 ## Conclusion
 
-Try here: [https://t.me/compliquer_bot](https://t.me/compliquer_bot)
+Try here: [https://t.me/neo_compiler_bot](https://t.me/neo_compiler_bot) or `@neo_compiler_bot` on Telegram.
 
-Source code: [https://github.com/skhaz/the-compliquer-bot](https://github.com/skhaz/the-compliquer-bot)
+Source code: [https://github.com/skhaz/neo-compiler-and-runner](https://github.com/skhaz/neo-compiler-and-runner).
 
 ![Telegram](/public/2023-12-01-executing-untrusted-code-in-serverless-environments-a-telegram-bot-for-running-c-and-c++-code-on-cloud-run/telegram.png){: .center }
