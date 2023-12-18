@@ -36,6 +36,6 @@ And many other small projects.
 
 As a result.
 
-![GitHub Stats](/2023-12-18-2023-was-a-productive-year/github.png)
+![GitHub Stats](/public/2023-12-18-2023-was-a-productive-year/github.png)
 
 Let's see if 2024 will surpass it. Happy new year everyone!
