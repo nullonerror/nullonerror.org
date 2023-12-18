@@ -1,7 +1,7 @@
 ---
 layout: post
 title: >
-  2023 was a productive year.
+  2023 was a productive year
 ---
 
 The year started and I joined [Fueled](https://fueled.com/), an agency specializing in mobile apps and web systems, as a lead engineer.
