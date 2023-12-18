@@ -30,7 +30,7 @@ As if that wasn't enough, I also developed and maintained personal projects, one
 - [Carimbo Play](https://github.com/flippingpixels/play) - A web server to serve a combination of Carimbo releases and games.
 - [Grammateus](https://github.com/skhaz/grammateus) - An assistant that summarizes Twitch streams using OpenAI, written in Go.
 - [Neo Compiler Bot](https://github.com/skhaz/neo-compiler-and-runner) - A Telegram bot capable of compiling and executing unsafe code in the cloud.
-- [Freudian Slip Bot](https://github.com/skhaz/freudian-slip) - A bot designed to detect slip-ups between the lines.
+- [Freudian Slip Bot](https://github.com/skhaz/freudian-slip) - A Telegram bot designed to detect slip-ups between the lines.
 
 And many other small projects.
 
