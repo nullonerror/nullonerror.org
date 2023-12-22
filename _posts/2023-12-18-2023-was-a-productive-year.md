@@ -6,7 +6,7 @@ title: >
 
 The year started and I joined [Fueled](https://fueled.com/), an agency specializing in mobile apps and web systems, as a lead engineer.
 
-At Fueled, so far I've had the opportunity to work with three of their biggest clients to date. One of them is the world's most famous lingerie brand, for which I developed a 'social network' that currently has about 1 million users. Then, I worked on a credit platform for elders in the United States that garnered 500,000 users at launch. Currently, I am working on a personal time management project for one of the top coaches in the field.
+At Fueled, so far I've had the opportunity to work with three of their biggest clients to date. One of them is the world's most famous lingerie brand, for which I developed a 'social network' that currently has about 5 million users. Then, I worked on a credit platform for elders in the United States that garnered 500,000 users at launch. Currently, I am working on a personal time management project for one of the top coaches in the field.
 
 In parallel, I wrote five articles for Fueled's technical blog. They are:
 
