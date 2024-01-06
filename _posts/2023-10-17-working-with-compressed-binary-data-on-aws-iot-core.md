@@ -243,4 +243,4 @@ export async function handler(event: { timestamp: number; topic: string; data: s
 
 In conclusion, it is possible to save a few bytes or even more with these techniques while utilizing cloud solutions like IoT Core in your projects. It allows for efficient data handling and enables the integration of cloud services into your applications.
 
-The compression ratio can vary dramatically, depending solely on the input. In my experiments with numerical data, it ranged from around 30% to 40%. However, the tradeoff is an increase of approximately 180KB in the final firmware size, which can be impractical in some cases.
+The compression ratio can vary dramatically, depending solely on the input. In my experiments with numerical data, it ranged from around 30% to 40%.
