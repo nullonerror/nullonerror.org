@@ -1,4 +1,8 @@
-# TakeALook Pro
+---
+layout: post
+title: >
+	How I saved a few dozen dollars by migrating my personal projects from the cloud to a Raspberry Pi
+---
 
 ### Intro
 
@@ -386,6 +390,6 @@ It's noticeable that it took a bit more effort than if I had used a task queue. 
 
 In sharing the shortened link ([https://takealook.pro/4MP](https://takealook.pro/4MP)) for my company [Ultratech Software](https://ultratech.software/) on social networks, you can have a really nice preview, as seen below.
 
-![takealook.pro](/public/2024-06-05-take-a-look/takealook.pro.avif){: .center }
+![takealook.pro](/public/2024-06-05-how-i-saved-a-few-dozen-dollars-by-migrating-my-personal-projects-from-the-cloud-to-a-raspberry-pi/takealook.pro.avif){: .center }
 
 [Take A Look](https://takealook.pro/)
