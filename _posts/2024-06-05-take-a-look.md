@@ -19,12 +19,64 @@ Typically, I use serverless for my personal projects because they scale to zero,
 - [SQLite](https://sqlite.org/) for the database (it's simple)
 - [Backblaze](https://www.backblaze.com/) for storage
 - [BunnyCDN](https://bunny.net/) for cotent delivery
+- [Papertrail](https://www.papertrail.com/) for logging
 
 Deployment is done using Docker Compose, via SSH using the DOCKER_HOST environment variable pointing directly to a Raspberry Pi that I had bought and never used before. Now it saves me $5 per month, and I can keep a limited number of projects running on it.
 
 And then you might ask: How do you expose it to the internet? I use [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/); the setup is simple and creates a direct connection between the Raspberry Pi and the nearest PoP.
 
 This type of hosting is extremely advantageous because the server's IP and/or ports are never revealed; it stays behind my firewall. Everything goes through Cloudflare.
+
+I have more than one Docker Compose file, and that's what's coolest. Locally, I run one, for deployment I instruct the Compose to read two others for logging and tunneling.
+
+`docker-compose.yaml`
+
+```yaml
+services:
+  app:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    volumes:
+      - data:/data
+    tmpfs:
+      - /tmp
+volumes:
+  data:
+```
+
+`docker-compose.logging.yaml`
+
+```yaml
+services:
+  app:
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://logs2.papertrailapp.com:XXX"
+        tag: "{{.Name}}/{{.ID}}"
+```
+
+`docker-compose.cloudflare.yaml`
+
+```yaml
+services:
+  tunnel:
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=yourtoken
+```
+
+Then for deploying
+
+```shell
+DOCKER_HOST=ssh://pi@192.168.0.10 docker compose --file docker-compose.yaml --file docker-compose.logging.yaml --file docker-compose.cloudflare.yaml up --build --detach
+```
 
 Example of the "worker queue"
 
