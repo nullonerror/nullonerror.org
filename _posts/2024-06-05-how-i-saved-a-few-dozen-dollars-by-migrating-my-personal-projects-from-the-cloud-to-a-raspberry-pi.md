@@ -25,9 +25,9 @@ Typically, I use serverless for my personal projects because they scale to zero,
 - [BunnyCDN](https://bunny.net/) for cotent delivery
 - [Papertrail](https://www.papertrail.com/) for logging
 
-Deployment is done using Docker Compose, via SSH using the DOCKER_HOST environment variable pointing directly to a Raspberry Pi that I had bought and never used before. Now it saves me $5 per month, and I can keep a limited number of projects running on it.
+Deployment is done using Docker Compose, via SSH using the DOCKER_HOST environment variable pointing directly to a [Raspberry Pi](https://www.raspberrypi.com/) that I had bought and never used before. Now it saves me $5 per month, and I can keep a limited number of projects running on it.
 
-And then you might ask: How do you expose it to the internet? I use [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/); the setup is simple and creates a direct connection between the Raspberry Pi and the nearest PoP.
+And then you might ask: How do you expose it to the internet? I use [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/); the setup is simple and creates a direct connection between the Raspberry Pi and the nearest [Point of Presence](https://en.wikipedia.org/wiki/Point_of_presence).
 
 This type of hosting is extremely advantageous because the server's IP and/or ports are never revealed; it stays behind my firewall. Everything goes through Cloudflare.
 
