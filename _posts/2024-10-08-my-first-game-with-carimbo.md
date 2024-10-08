@@ -15,7 +15,7 @@ I made a game for my son. I could have used an existing engine, but I chose to w
 
 This actually reminds me of when my father used to build my toys, from kites to wooden slides. Good memories. I have decided to do the same using what I know: programming.
 
-You can watch it here or [play it here](https://play.carimbo.cloud/1.0.10/carimbolabs/megarick/1.0.7/720p) (runs in the browser thanks to WebAssembly).
+You can watch it here or [play it here](https://play.carimbo.cloud/1.0.10/carimbolabs/megarick/1.0.7/720p), (runs in the browser thanks to WebAssembly), use `A` and `D` for moving around and `space` to shoot.
 
 The engine was written in C++17, and the games are in Lua. The engine exposes some primitives to the Lua VM, which in turn coordinates the entire game.
 
