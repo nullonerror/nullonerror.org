@@ -102,3 +102,57 @@ octopus:on_mail(function(self, message)
   end
 end)
 ```
+
+And finally, the player’s `on_update`, where I apply the velocity if any movement keys are pressed, or set the animation to idle if none are pressed.
+
+We also have the projectile firing, where the fire function is called, taking an instance of a bullet from the pool, placing it in a semi-random position, and applying velocity.
+
+```lua
+local function fire()
+  if #bullet_pool > 0 then
+    local bullet = table.remove(bullet_pool)
+    local x = (player.x + player.size.width) - 30
+    local y = player.y + 30
+    local offset_y = (math.random(-2, 2)) * 20
+
+    bullet:set_placement(x, y + offset_y)
+    bullet:set_velocity(Vector2D.new(0.6, 0))
+    bullet:set_action("default")
+
+    local sound = "bomb" .. math.random(1, 2)
+    soundmanager:play(sound)
+  end
+end
+
+player:on_update(function(self)
+  local velocity = Vector2D.new(0, 0)
+
+  if engine:is_keydown(KeyEvent.space) then
+    if not shooting then
+      fire()
+      shooting = true
+    end
+  else
+    shooting = false
+  end
+
+  if engine:is_keydown(KeyEvent.a) then
+    velocity.x = -.4
+  elseif engine:is_keydown(KeyEvent.d) then
+    velocity.x = .4
+  end
+
+  if velocity:moving() then
+    self:set_action("run")
+    if velocity:left() then
+      self:set_flip(Flip.horizontal)
+    else
+      self:set_flip(Flip.none)
+    end
+  elseif velocity:zero() then
+    self:set_action("idle")
+  end
+
+  self:set_velocity(velocity)
+end)
+```
