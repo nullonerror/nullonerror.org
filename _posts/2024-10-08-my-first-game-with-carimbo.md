@@ -4,11 +4,12 @@ title: >
   My First Game with Carimbo, My Homemade Engine
 ---
 
-[![MegaRick](https://img.youtube.com/vi/nVRzCstyspQ/0.jpg)](https://youtu.be/nVRzCstyspQ)
+[![MegaRick Game](https://img.youtube.com/vi/nVRzCstyspQ/0.jpg)](https://youtu.be/nVRzCstyspQ)
+[https://youtu.be/nVRzCstyspQ](https://youtu.be/nVRzCstyspQ)
 
 ### TL;DR
 
-After a while, I decided to resume work on my game engine.
+After a while, I decided to resume work on [my game engine](https://github.com/carimbolabs/carimbo).
 
 I made a game for my son. I could have used an existing engine, but I chose to write everything from scratch because code is like pasta—it’s much better and more enjoyable when homemade.
 
