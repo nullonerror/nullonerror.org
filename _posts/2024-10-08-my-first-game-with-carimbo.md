@@ -25,7 +25,7 @@ Artwork by [Aline Cardoso @yuugenpixie](https://www.fiverr.com/yuugenpixie).
 
 ### Going Deep
 
-The entire game is scripted in Lua.
+The entire game is scripted in [Lua](https://www.lua.org).
 
 First, we create the engine itself.
 
@@ -38,7 +38,7 @@ local engine = EngineFactory.new()
     :create()
 ```
 
-Then we point to some resources for asset prefetching; they are loaded lazily to avoid impacting the game loop.
+Then we point to some resources for asset prefetching; they are loaded lazily to avoid impacting the _game loop_.
 
 ```lua
 engine:prefetch({
@@ -54,7 +54,7 @@ engine:prefetch({
 })
 ```
 
-We created the postal service, which is something I borrowed from languages like Erlang, where an entity can send messages to any other. As we’ll see below, the bullet sends a hit message when it collides with the octopus, and the octopus, upon receiving the hit, decrements its own health.
+We created the postal service, which is something I borrowed from languages like _Erlang_, where an entity can send messages to any other. As we’ll see below, the bullet sends a hit message when it collides with the octopus, and the octopus, upon receiving the hit, decrements its own health.
 
 We also obtain the SoundManager to play sounds and spawn the main entities.
 
@@ -70,7 +70,7 @@ local candle2 = engine:spawn("candle")
 
 It’s not a triple-A title, but I’m very careful with resource management. A widely known technique is to create an object pool that you can reuse. In the code below, we limit it to a maximum of 3 bullets present on the screen.
 
-The on_update method is a callback called each loop in the engine. In the case of the bullet, I check if it has approached the green octopus. If so, I send a message to it indicating that it received a hit.
+The `on_update` method is a callback called each loop in the engine. In the case of the bullet, I check if it has approached the green octopus. If so, I send a message to it indicating that it received a hit.
 
 ```lua
 for _ = 1, 3 do
