@@ -161,4 +161,4 @@ end)
 
 In the end, he requested some _minor_ tweaks, such as the projectile being the princess sprite, the target being the player, and the entity that shoots being the green octopus. 🤷‍♂️
 
-[![Tweaks](/public/2024-10-08-my-first-game-with-carimbo/tweaks.jpeg)](https://youtu.be/nVRzCstyspQ){: .center }
+[![Tweaks](/public/2024-10-08-my-first-game-with-carimbo/tweaks.jpeg)]{: .center }
