@@ -21,7 +21,7 @@ The engine was written in C++17, and the games are in Lua. The engine exposes so
 
 [Game source code](https://github.com/carimbolabs/megarick) and [engine source code](https://github.com/carimbolabs/carimbo).
 
-[Artwork by Aline Cardoso @yuugenpixie](https://www.fiverr.com/yuugenpixie).
+Artwork by [Aline Cardoso @yuugenpixie](https://www.fiverr.com/yuugenpixie).
 
 ### Going Deep
 
