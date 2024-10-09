@@ -1,7 +1,7 @@
 ---
 layout: post
 title: >
-  My First Game with Carimbo, My Homemade Engine
+  My First Game with Carimbo, My Homemade Engine, For my Son
 ---
 
 [![MegaRick Game](/public/2024-10-08-my-first-game-with-carimbo/megarick.webp){: .center }](https://youtu.be/nVRzCstyspQ)
