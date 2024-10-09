@@ -4,7 +4,7 @@ title: >
   My First Game with Carimbo, My Homemade Engine
 ---
 
-[![MegaRick Game](public/2024-10-08-my-first-game-with-carimbo/megarick.webp)](https://youtu.be/nVRzCstyspQ){: .center }
+[![MegaRick Game](/public/2024-10-08-my-first-game-with-carimbo/megarick.webp)](https://youtu.be/nVRzCstyspQ){: .center }
 [https://youtu.be/nVRzCstyspQ](https://youtu.be/nVRzCstyspQ)
 
 ### TL;DR
