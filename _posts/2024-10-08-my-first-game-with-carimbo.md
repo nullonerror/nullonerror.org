@@ -23,6 +23,10 @@ The engine was written in C++17, and the games are in Lua. The engine exposes so
 
 Artwork by [Aline Cardoso @yuugenpixie](https://www.fiverr.com/yuugenpixie).
 
+### Result
+
+![Henrique Playing](/public/2024-10-08-my-first-game-with-carimbo/play.jpeg){: .center }
+
 ### Going Deep
 
 The entire game is scripted in [Lua](https://www.lua.org).
