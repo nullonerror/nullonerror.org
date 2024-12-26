@@ -15,11 +15,11 @@ I made a game for my son. I could have used an existing engine, but I chose to w
 
 This actually reminds me of when my father used to build my toys, from kites to wooden slides. Good memories. I have decided to do the same using what I know: programming.
 
-You can watch it here or [play it here](https://play.carimbo.cloud/1.0.10/carimbolabs/megarick/1.0.7/720p), (runs in the browser thanks to WebAssembly), use `A` and `D` for moving around and `space` to shoot.
+You can watch it here or [play it here](https://carimbo.run), (runs in the browser thanks to WebAssembly), use `A` and `D` for moving around and `space` to shoot.
 
 The engine was written in C++17, and the games are in Lua. The engine exposes some primitives to the Lua VM, which in turn coordinates the entire game.
 
-[Game source code](https://github.com/carimbolabs/megarick) and [engine source code](https://github.com/carimbolabs/carimbo).
+[Game source code](https://github.com/willtobyte/megarick) and [engine source code](https://github.com/willtobyte/carimbo).
 
 Artwork by [Aline Cardoso @yuugenpixie](https://www.fiverr.com/yuugenpixie).
 
@@ -78,34 +78,86 @@ The `on_update` method is a callback called each loop in the engine. In the case
 
 ```lua
 for _ = 1, 3 do
-  local bullet = engine:spawn("bullet")
-  bullet:set_placement(-128, -128)
-  bullet:on_update(function(self)
-    if self.x > 1200 then
-      postal:post(Mail.new(0, "bullet", "hit")) -- id 0 is the octopus
-      bullet:unset_action()
-      bullet:set_placement(-128, -128) -- move to ouside the screen
-      table.insert(bullet_pool, bullet) -- back to the pool
-    end
-  end)
-  table.insert(bullet_pool, bullet)
-end
+    local bullet = entitymanager:spawn("bullet")
+    bullet.placement:set(-128, -128)
+    bullet:on_collision("octopus", function(self)
+      self.action:unset()
+      self.placement:set(-128, -128)
+      postalservice:post(Mail.new(octopus, "bullet", "hit"))
+      table.insert(bullet_pool, self)
+    end)
+    table.insert(bullet_pool, bullet)
+  end
 ```
 
 On the octopus’s side, when it receives a “hit” message, the entity triggers an explosion animation, switches to attack mode, and decreases its health by 1. If it reaches 0, it changes the animation to “dead”.
 
 ```lua
-octopus:set_action("idle")
-octopus:set_placement(1200, 620)
+octopus = entitymanager:spawn("octopus")
+octopus.kv:set("life", 16)
+octopus.placement:set(1200, 622)
+octopus.action:set("idle")
 octopus:on_mail(function(self, message)
-  if message == 'hit' then
-    bomb()
-    octopus:set_action("attack")
-    life = life - 1
-    if life <= 0 then
-      self:set_action("dead")
+  local behavior = behaviors[message]
+  if behavior then
+    behavior(self)
+  end
+end)
+octopus.kv:subscribe("life", function(value)
+  vitality:set(string.format("%02d-", math.max(value, 0)))
+
+  if value <= 0 then
+    octopus.action:set("dead")
+    if not timer then
+      timemanager:singleshot(3000, function()
+        local function destroy(pool)
+          for i = #pool, 1, -1 do
+            entitymanager:destroy(pool[i])
+            table.remove(pool, i)
+            pool[i] = nil
+          end
+        end
+
+        destroy(bullet_pool)
+        destroy(explosion_pool)
+        destroy(jet_pool)
+
+        entitymanager:destroy(octopus)
+        octopus = nil
+
+        entitymanager:destroy(player)
+        player = nil
+
+        entitymanager:destroy(princess)
+        princess = nil
+
+        entitymanager:destroy(candle1)
+        candle1 = nil
+
+        entitymanager:destroy(candle2)
+        candle2 = nil
+
+        entitymanager:destroy(floor)
+        floor = nil
+
+        overlay:destroy(vitality)
+        vitality = nil
+
+        overlay:destroy(online)
+        online = nil
+
+        scenemanager:set("gameover")
+
+        collectgarbage("collect")
+
+        resourcemanager:flush()
+      end)
+      timer = true
     end
   end
+end)
+octopus:on_animationfinished(function(self)
+  self.action:set("idle")
 end)
 ```
 
@@ -114,53 +166,51 @@ And finally, the player’s `on_update`, where I apply the velocity if any movem
 We also have the projectile firing, where the fire function is called, taking an instance of a bullet from the pool, placing it in a semi-random position, and applying velocity.
 
 ```lua
-local function fire()
-  if #bullet_pool > 0 then
-    local bullet = table.remove(bullet_pool)
-    local x = (player.x + player.size.width) - 30
-    local y = player.y + 30
-    local offset_y = (math.random(-2, 2)) * 20
-
-    bullet:set_placement(x, y + offset_y)
-    bullet:set_velocity(Vector2D.new(0.6, 0))
-    bullet:set_action("default")
-
-    local sound = "bomb" .. math.random(1, 2)
-    soundmanager:play(sound)
+function loop()
+  if not player then
+    return
   end
-end
 
-player:on_update(function(self)
-  local velocity = Vector2D.new(0, 0)
+  player.velocity.x = 0
 
-  if engine:is_keydown(KeyEvent.space) then
-    if not shooting then
-      fire()
-      shooting = true
+  if statemanager:is_keydown(KeyEvent.left) then
+    player.reflection:set(Reflection.horizontal)
+    player.velocity.x = -360
+  elseif statemanager:is_keydown(KeyEvent.right) then
+    player.reflection:unset()
+    player.velocity.x = 360
+  end
+
+  player.action:set(player.velocity.x ~= 0 and "run" or "idle")
+
+  if statemanager:is_keydown(KeyEvent.space) then
+    if not key_states[KeyEvent.space] then
+      key_states[KeyEvent.space] = true
+
+      -- player.velocity.y = -360
+
+      if octopus.kv:get("life") <= 0 then
+        return
+      end
+
+      if #bullet_pool > 0 then
+        local bullet = table.remove(bullet_pool)
+        local x = (player.x + player.size.width) + 100
+        local y = player.y + 10
+        local offset_y = (math.random(-2, 2)) * 30
+
+        bullet.placement:set(x, y + offset_y)
+        bullet.action:set("default")
+        bullet.velocity.x = 800
+
+        local sound = "bomb" .. math.random(1, 2)
+        soundmanager:play(sound)
+      end
     end
   else
-    shooting = false
+    key_states[KeyEvent.space] = false
   end
-
-  if engine:is_keydown(KeyEvent.a) then
-    velocity.x = -.4
-  elseif engine:is_keydown(KeyEvent.d) then
-    velocity.x = .4
-  end
-
-  if velocity:moving() then
-    self:set_action("run")
-    if velocity:left() then
-      self:set_flip(Flip.horizontal)
-    else
-      self:set_flip(Flip.none)
-    end
-  elseif velocity:zero() then
-    self:set_action("idle")
-  end
-
-  self:set_velocity(velocity)
-end)
+end
 ```
 
 ### In The End
