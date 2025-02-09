@@ -7,12 +7,13 @@ title: >
 I have a project called [steamosaic.com](https://steamosaic.com) that was quite popular among Steam players. I estimate that over 50,000 users created their mosaics; unfortunately, I only added a counter after the initial hype, and today it stands at 15,991.
 
 In the initial version, I jumped completely on the cloud and serverless bandwagon. It worked more or less like this:
-	1.	When a user entered their username, I saved it as a document in Firestore (Firebase’s document-based database).
-	2.	Whenever any document was saved, a Cloud Function was triggered, which then published a message to a PubSub topic (Google Cloud’s message queue).
-	3.	On the other side, there was a Cloud Run (a serverless container-based runtime) that, whenever it received a message, had a new instance triggered by Google’s infrastructure.
-	4.	Generating the mosaics took a long time because even the cheaper instances were still too expensive.
-	5.	Once finished, Cloud Run saved the mosaic in a bucket and marked it as “ready.”
-	6.	On the client side, a small JavaScript waited for the “ready” signal before finally displaying the mosaic.
+
+1. When a user entered their username, I saved it as a document in Firestore (Firebase’s document-based database).
+2. Whenever any document was saved, a Cloud Function was triggered, which then published a message to a PubSub topic (Google Cloud’s message queue).
+3. On the other side, there was a Cloud Run (a serverless container-based runtime) that, whenever it received a message, had a new instance triggered by Google’s infrastructure.
+4. Generating the mosaics took a long time because even the cheaper instances were still too expensive.
+5. Once finished, Cloud Run saved the mosaic in a bucket and marked it as “ready.”
+6. On the client side, a small JavaScript waited for the “ready” signal before finally displaying the mosaic.
 
 I didn’t use Infrastructure as Code since it was just a pet project, so any maintenance or setup took days.
 
