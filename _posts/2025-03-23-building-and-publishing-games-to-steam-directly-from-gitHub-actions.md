@@ -12,6 +12,8 @@ As I mentioned earlier, I have a 2D engine that, while simple, is quite comprehe
 
 This way
 
+{% raw %}
+
 ```yaml
 name: Release
 
@@ -147,6 +149,8 @@ jobs:
           files: artifacts/*
 ```
 
+{% endraw %}
+
 Publishing on Steam is quite simple. First, you need a developer account with the correct documentation and fees paid.
 
 After that, you’ll need to generate some secret keys as follows:
@@ -172,6 +176,8 @@ cat ~/Library/Application\ Support/Steam/config/config.vdf | base64 | pbcopy
 Also, create the variables `STEAM_USERNAME` with your username and `STEAM_APP_ID` with your game’s ID.
 
 Additionally, the Action downloads the latest Carimbo release for Windows only (sorry Linux and macOS users, my time is limited). Ideally, I should pin the runtime version (the Carimbo version) using something like a runtime.txt file. Maybe I’ll implement this in the future, but for now, everything runs on the bleeding edge. :-)
+
+{% raw %}
 
 ```yaml
 on:
@@ -222,5 +228,7 @@ jobs:
           depot1Path: "."
           releaseBranch: prerelease
 ```
+
+{% endraw %}
 
 Boom! If everything is correct, your game should appear in your Steam client under the list of owned games.

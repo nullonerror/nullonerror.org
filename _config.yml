@@ -10,8 +10,8 @@ sass:
 
 author:
   name: Rodrigo Delduca
-  url: https://rodrigodelduca.org/
-  email: rodrigodelduca@gmail.com
+  url: https://rodrigodelduca.org
+  email: rodrigo@delduca.org
 
 kramdown:
   input: GFM
