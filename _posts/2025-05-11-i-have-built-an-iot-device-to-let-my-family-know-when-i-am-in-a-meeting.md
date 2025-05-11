@@ -20,4 +20,4 @@ On the other side, I have a Python daemon that periodically queries Apple’s AP
 
 Very simple, but quite useful.
 
-See in action here [https://youtu.be/c-cD_JLuCuQ](youtu.be/c-cD_JLuCuQ)
+See in action here https://youtu.be/c-cD_JLuCuQ
