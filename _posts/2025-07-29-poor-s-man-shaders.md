@@ -77,7 +77,8 @@ function Effect:new(width, height)
   return self
 end
 
-function Light:loop()
+function Effect:loop()
+  -- Some cool effect...
   self.canvas.pixels = rep(char(0, 0, 0, 220), self.w * self.h)
 end
 
