@@ -79,7 +79,7 @@ end
 
 function Effect:loop()
   -- Some cool effect...
-  self.canvas.pixels = rep(char(0, 0, 0, 220), self.w * self.h)
+  self.canvas.pixels = rep(char(0, 0, 0, 220), self.w * self.h)`
 end
 
 ```
