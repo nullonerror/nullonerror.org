@@ -15,7 +15,7 @@ I made a game for my son. I could have used an existing engine, but I chose to w
 
 This actually reminds me of when my father used to build my toys, from kites to wooden slides. Good memories. I have decided to do the same using what I know: programming.
 
-You can watch it here or [play it here](https://carimbo.run), (runs in the browser thanks to WebAssembly), use `A` and `D` for moving around and `space` to shoot.
+You can watch it here or [play it here](https://carimbo.games), (runs in the browser thanks to WebAssembly), use `A` and `D` for moving around and `space` to shoot.
 
 The engine was written in C++17, and the games are in Lua. The engine exposes some primitives to the Lua VM, which in turn coordinates the entire game.
 
